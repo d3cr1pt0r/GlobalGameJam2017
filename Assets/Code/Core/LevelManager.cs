@@ -2,50 +2,49 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LevelManager : MonoBehaviour
+public class LevelManager
 {
 
 	public Universe Universe;
-	public int CurrentLevel;
 	public GameObject CurrentLoadedLevel;
+	public int CurrentLevel;
 
-	private void Awake ()
+	private static LevelManager instance;
+
+	private LevelManager ()
 	{
 		Log.LogDebug ("LevelManager Awake()");
 	}
 
-	public void LoadLevel (int index)
-	{
-		if (index < 0 || index > Universe.Levels.Count) {
-			Log.LogWarning (string.Format ("Level {0} does't exist", CurrentLevel));
-			return;
+	public static LevelManager Instance {
+		get {
+			if (instance == null) {
+				instance = new LevelManager ();
+			}	
+			return instance;
 		}
-
-		CurrentLevel = index;
-		Level level = Universe.Levels [CurrentLevel];
-		CurrentLoadedLevel = Instantiate (level.LevelPrefab, level.LevelPosition, Quaternion.identity);
 	}
 
-	public void LoadNextLevel ()
+	public Level GetCurrentLevel ()
+	{
+		return Universe.Levels [CurrentLevel];
+	}
+
+	public bool IncreaseLevel ()
 	{
 		CurrentLevel += 1;
 
 		if (CurrentLevel > Universe.Levels.Count - 1) {
 			Log.LogWarning (string.Format ("Level {0} does't exist", CurrentLevel));
-			return;
+			return false;
 		}
 
-		LoadLevel (CurrentLevel);
+		return true;
 	}
 
 	public bool IsLastLevel ()
 	{
 		return CurrentLevel == Universe.Levels.Count - 1;
-	}
-
-	public int GetCurrentLevel ()
-	{
-		return CurrentLevel;
 	}
 
 }

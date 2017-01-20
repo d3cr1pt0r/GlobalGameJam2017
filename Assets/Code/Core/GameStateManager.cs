@@ -1,37 +1,90 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System;
 
-public class GameStateManager : MonoBehaviour
+public class GameStateManager
 {
-	private string Tag = "ScoreManager";
-	private int Score;
+	public Action OnGoalItemHitsSafeNet;
+	public Action OnGoalItemHitsGround;
 
-	void Awake ()
+	public Action OnDebreeItemHitsSafeNet;
+	public Action OnDebreeItemHitsGround;
+
+	public Action OnGameOver;
+	public Action OnLevelComplete;
+
+	private static GameStateManager instance;
+
+	private GameStateManager ()
 	{
 		Log.LogDebug ("ScoreManager Awake()");
-
-		Score = 0;
 	}
 
-	public void SetScore (int score)
-	{
-		Score = score;
+	public static GameStateManager Instance {
+		get {
+			if (instance == null) {
+				instance = new GameStateManager ();
+			}	
+			return instance;
+		}
 	}
 
-	public int GetScore ()
-	{
-		return Score;
+	public int Lives { get; private set; }
+
+	public int Score { get; private set; }
+
+	public int NrGoalItemsCought { get; private set; }
+
+	public int NrDebreeItemsCought { get; private set; }
+
+	public void GoalItemHitsSafeNet ()
+	{	
+		NrGoalItemsCought++;
+
+		if (OnGoalItemHitsSafeNet != null)
+			OnGoalItemHitsSafeNet ();
 	}
 
-	public void IncreaseScore (int amount)
+	public void GoalItemHitsGround ()
 	{
-		Score += amount;
+		Lives--;
+
+		if (OnGoalItemHitsGround != null)
+			OnGoalItemHitsGround ();	
+
+		CheckGameOver ();
 	}
 
-	public void DecreaseScore (int amount)
+	public void DebreeItemHitsSafeNet ()
 	{
-		Score -= amount;
+		Lives--;
+		NrDebreeItemsCought++;
+
+		if (OnDebreeItemHitsSafeNet != null)
+			OnDebreeItemHitsSafeNet ();
+
+		CheckGameOver ();
+	}
+
+	public void DebreeItemHitsGround ()
+	{
+		if (OnDebreeItemHitsGround != null)
+			OnDebreeItemHitsGround ();	
+	}
+
+	public void CheckGameOver ()
+	{
+		if (Lives <= 0) {
+			if (OnGameOver != null) {
+				OnGameOver ();
+			}
+		}
+	}
+
+	private void CheckLevelComplete ()
+	{
+
 	}
 
 }
