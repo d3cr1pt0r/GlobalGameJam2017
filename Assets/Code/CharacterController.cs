@@ -9,6 +9,7 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private Rigidbody2D Rigidbody2D;
     [SerializeField] private LayerMask GroundLayerMask;
     [SerializeField] private int PlayerNumber;
+    [SerializeField] private LineRenderer LineRenderer;
 
     private bool IsOnGround;
     private Vector3 Speed;
@@ -23,6 +24,9 @@ public class CharacterController : MonoBehaviour {
         bool jump2 = Input.GetButtonDown("JumpP2");
 
         MoveUpdate(PlayerNumber == 1 ? xAxis1 : xAxis2, PlayerNumber == 1 ? jump1 : jump2);
+
+        int ropeIndex = PlayerNumber - 1;
+        LineRenderer.SetPosition(ropeIndex, transform.position);
 
         // Reset if fallen down
         if (transform.position.y < -3) {
@@ -45,6 +49,5 @@ public class CharacterController : MonoBehaviour {
 
         // Update position
         transform.position += new Vector3(xStep, yStep);
-
     }
 }
