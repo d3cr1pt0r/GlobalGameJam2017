@@ -84,7 +84,7 @@ public class ItemPatternSpawnerController : MonoBehaviour
 			}
 
 			GameObject go = PoolManager.Instance.GetFromPool (itemPrefab);
-			go.transform.position = itemNode.Position;
+			go.transform.position = itemNode.Position + pattern.RootPosition;
 		}
 	}
 
