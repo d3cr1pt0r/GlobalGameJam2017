@@ -7,6 +7,11 @@ public class ItemController : MonoBehaviour
 
 	[SerializeField] private Enums.ItemType ItemType;
 
+	public Enums.ItemType GetItemType ()
+	{
+		return ItemType;
+	}
+
 	private void OnCollisionEnter2D (Collision2D collision)
 	{
 		if (collision.gameObject.layer == Layers.GROUND) {
