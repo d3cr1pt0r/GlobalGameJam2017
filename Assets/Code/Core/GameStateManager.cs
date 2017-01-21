@@ -18,7 +18,7 @@ public class GameStateManager
 
 	private GameStateManager ()
 	{
-		Log.LogDebug ("ScoreManager Awake()");
+		
 	}
 
 	public static GameStateManager Instance {

@@ -4,9 +4,8 @@ using UnityEngine;
 
 public class SpawnerController : MonoBehaviour
 {
-	public List<Spawnable> Spawnables;
-
 	public float SpawnRate;
+	public List<Spawnable> Spawnables;
 
 	public bool Enabled { get; private set; }
 
@@ -25,11 +24,13 @@ public class SpawnerController : MonoBehaviour
 
 	private void Update ()
 	{
-		Timer += Time.deltaTime;
+		if (Enabled) {
+			Timer += Time.deltaTime;
 
-		if (Timer >= SpawnRate) {
-			Spawn ();
-			Timer = 0.0f;
+			if (Timer >= SpawnRate) {
+				Spawn ();
+				Timer = 0.0f;
+			}
 		}
 	}
 
