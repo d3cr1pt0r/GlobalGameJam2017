@@ -3,7 +3,10 @@
 public class CharacterController : MonoBehaviour {
 
     [SerializeField] private float WalkSpeed = 1;
-    [SerializeField] private float JumpForce = 100;
+    [SerializeField] private float Friction = 0.96f;
+    [SerializeField] private float JumpForce = 1;
+    [SerializeField] private float MaxVelocity = 1;
+    [SerializeField] private float Gravity = -1;
     [SerializeField] private Transform TopLeft;
     [SerializeField] private Transform BottomRight;
     [SerializeField] private SpriteRenderer SpriteRenderer;
@@ -20,49 +23,88 @@ public class CharacterController : MonoBehaviour {
 
     private bool IsOnGround;
     private Vector3 Speed;
-    private Vector3 Acceleration;
+    private Vector3 Velocity;
+    private Vector3 Position;
+    private float XAxis;
+    private bool Jump;
+
+    void Start() {
+        Position = transform.position;
+    }
 
     void Update() {
 
         // Get input
         float xAxis1 = Input.GetAxis("Horizontal1");
         float xAxis2 = Input.GetAxis("Horizontal2");
-        float xAxis = PlayerNumber == 1 ? xAxis1 : xAxis2;
+        XAxis = PlayerNumber == 1 ? xAxis1 : xAxis2;
         bool jump1 = Input.GetButtonDown("JumpP1");
         bool jump2 = Input.GetButtonDown("JumpP2");
-        bool jump = PlayerNumber == 1 ? jump1 : jump2;
+        Jump = PlayerNumber == 1 ? jump1 : jump2;
 
         // Rotate toward walk direction
-        if (!Mathf.Approximately(xAxis, 0)) {
-            SpriteRenderer.flipX = xAxis < 0;
+        if (!Mathf.Approximately(XAxis, 0)) {
+            SpriteRenderer.flipX = XAxis < 0;
         }
 
-        MoveUpdate(xAxis, jump);
-        AttractUpdate();
+//        MoveUpdate();
+//        AttractUpdate();
         RenderRope();
         RopeCollisionUpdate();
 
+    }
+
+    void FixedUpdate() {
+        MoveUpdate();
         // Reset if fallen down
         if (transform.position.y < -10) {
             transform.position = Vector3.zero;
             Rigidbody2D.velocity = Vector2.zero;
+            Position = Vector3.zero;
+            Velocity = Vector3.zero;
         }
     }
 
-    private void MoveUpdate(float xAxis, bool jump) {
+    private void MoveUpdate() {
 
-        IsOnGround = Physics2D.OverlapArea(TopLeft.position, BottomRight.position, GroundLayerMask);
+        bool rightRay = Physics2D.Raycast(BottomRight.transform.position, Vector3.down, 0.1f).collider != null;
+        bool leftRay = Physics2D.Raycast(TopLeft.transform.position, Vector3.down, 0.1f).collider != null;
+//        Debug.DrawRay(BottomRight.transform.position, Vector3.down, Color.red);
+//        Debug.DrawRay(TopLeft.transform.position, Vector3.down, Color.red);
+//        IsOnGround = Physics2D.OverlapArea(TopLeft.position, BottomRight.position, GroundLayerMask);
+        IsOnGround = rightRay || leftRay;
         //        Debug.Log(string.Format("IsOnGround={0}", IsOnGround));
 
-        if (IsOnGround && jump) {
-            Rigidbody2D.AddForce(Vector3.up * JumpForce);
+        bool noInput = Mathf.Approximately(XAxis, 0);
+        if (!noInput && Mathf.Sign(Velocity.x) != Mathf.Sign(XAxis)) {
+            Velocity.x = 0;
         }
 
-        float xStep = xAxis * WalkSpeed;
+        // Moving
+        Velocity.x += XAxis * WalkSpeed;
+        Velocity.x = Mathf.Clamp(Velocity.x, -MaxVelocity, MaxVelocity);
 
-        // Update position
-//        transform.position += Vector3.right * xStep;
-        Rigidbody2D.AddForce(Vector3.right * xAxis * 10);
+        // Jumping
+        if (IsOnGround) {
+            Velocity.y = 0;
+            if (Jump) {
+                Velocity.y += JumpForce;
+            }
+        }
+
+        // Gravity
+        if (!IsOnGround) {
+            Velocity.y += Gravity;
+        }
+
+        // Friction
+        if (noInput) {
+            Velocity.x *= Friction;
+        }
+
+        // Apply movement
+        Position += Velocity;
+        transform.position = Position;
     }
 
     private void AttractUpdate() {
