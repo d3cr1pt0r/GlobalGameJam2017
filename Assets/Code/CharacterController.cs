@@ -14,6 +14,7 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private LayerMask RopeLayerMask;
     [SerializeField] private int PlayerNumber;
     [SerializeField] private CharacterController OtherCharacter;
+    [SerializeField] private Animator Animator;
 
     [Header("Rope")]
     [SerializeField] private Transform RopeSource;
@@ -28,10 +29,12 @@ public class CharacterController : MonoBehaviour {
     private float XAxis;
     private bool Jump;
     private RaycastHit2D Hit;
+    private float TurnHeadDelay;
 
     void Start() {
         Position = transform.position;
     }
+
 
     void Update() {
 
@@ -50,6 +53,12 @@ public class CharacterController : MonoBehaviour {
 
         RenderRope();
         RopeCollisionUpdate();
+
+        TurnHeadDelay -= Time.deltaTime;
+        if (TurnHeadDelay <= 0) {
+            Animator.SetTrigger("DoTurnHead");
+            TurnHeadDelay = Random.Range(5, 10);
+        }
     }
 
     void FixedUpdate() {
