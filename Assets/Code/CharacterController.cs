@@ -16,6 +16,7 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private CharacterController OtherCharacter;
 
     [Header("Rope")]
+    [SerializeField] private Transform RopeSource;
     [SerializeField] private LineRenderer LineRenderer;
     [SerializeField] private float RopeForce = 100;
     [SerializeField] private float RopeLength = 2;
@@ -111,9 +112,8 @@ public class CharacterController : MonoBehaviour {
     }
 
     private void RenderRope() {
-        if (PlayerNumber == 2) return;
-        LineRenderer.SetPosition(0, transform.position);
-        LineRenderer.SetPosition(1, OtherCharacter.transform.position);
+        int ropeIndex = PlayerNumber - 1;
+        LineRenderer.SetPosition(ropeIndex, RopeSource.position);
     }
 
     private void RopeCollisionUpdate() {
