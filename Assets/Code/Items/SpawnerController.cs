@@ -6,12 +6,14 @@ public class SpawnerController : MonoBehaviour
 {
 	public static string Tag = "SpawnerController";
 
-	public float SpawnRate;
+	public float SpawnRateFrom;
+	public float SpawnRateTo;
 	public List<Spawnable> Spawnables;
 
 	public bool Enabled { get; private set; }
 
 	private float Timer;
+	private float NextSpawnRate;
 	private int PoolSize;
 
 	public void SetEnabled (bool enabled)
@@ -23,6 +25,7 @@ public class SpawnerController : MonoBehaviour
 	{
 		Log.LogDebug (Tag, "Awake");
 
+		NextSpawnRate = Random.Range (SpawnRateFrom, SpawnRateTo);
 		Enabled = true;
 		CreatePool ();
 	}
@@ -32,8 +35,9 @@ public class SpawnerController : MonoBehaviour
 		if (Enabled) {
 			Timer += Time.deltaTime;
 
-			if (Timer >= SpawnRate) {
+			if (Timer >= NextSpawnRate) {
 				Spawn ();
+				NextSpawnRate = Random.Range (SpawnRateFrom, SpawnRateTo);
 				Timer = 0.0f;
 			}
 		}
@@ -48,20 +52,21 @@ public class SpawnerController : MonoBehaviour
 
 	private void Spawn ()
 	{
-		List<GameObject> qualifiedGO = new List<GameObject> ();
+		List<Spawnable> qualifiedSpawnable = new List<Spawnable> ();
 
 		for (int i = 0; i < Spawnables.Count; i++) {
 			float random = Random.Range (0.0f, 1.0f);
 
 			if (random <= Spawnables [i].SpawnProbability) {
-				qualifiedGO.Add (Spawnables [i].SpawnablePrefab);
+				qualifiedSpawnable.Add (Spawnables [i]);
 			}
 		}
 
-		if (qualifiedGO.Count > 0) {
-			GameObject qualified = qualifiedGO [Random.Range (0, qualifiedGO.Count)];
-			GameObject go = PoolManager.Instance.GetFromPool (qualified);
+		if (qualifiedSpawnable.Count > 0) {
+			Spawnable qualified = qualifiedSpawnable [Random.Range (0, qualifiedSpawnable.Count)];
+			GameObject go = PoolManager.Instance.GetFromPool (qualified.SpawnablePrefab);
 			go.transform.position = transform.position;
+			go.transform.localScale = Vector3.one * qualified.Scale;
 		}
 	}
 
