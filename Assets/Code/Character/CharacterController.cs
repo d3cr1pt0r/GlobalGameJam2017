@@ -14,7 +14,11 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private LayerMask RopeLayerMask;
     [SerializeField] private int PlayerNumber;
     [SerializeField] private CharacterController OtherCharacter;
+
+    [Header("Graphics")]
     [SerializeField] private Animator Animator;
+    [SerializeField] private Transform BackWheel;
+    [SerializeField] private Transform FrontWheel;
 
     [Header("Rope")]
     [SerializeField] private Transform RopeSource;
@@ -54,10 +58,18 @@ public class CharacterController : MonoBehaviour {
         RenderRope();
         RopeCollisionUpdate();
 
+        // Trigger head animation
         TurnHeadDelay -= Time.deltaTime;
         if (TurnHeadDelay <= 0) {
             Animator.SetTrigger("DoTurnHead");
             TurnHeadDelay = Random.Range(5, 10);
+        }
+
+        // Turn wheels
+        if (IsOnGround) {
+            BackWheel.Rotate(Vector3.forward, -Velocity.x * 500);
+            FrontWheel.Rotate(Vector3.forward, -Velocity.x * 500);
+//            Debug.Log(string.Format("Velocity.x={0}", Velocity.x));
         }
     }
 
@@ -137,7 +149,7 @@ public class CharacterController : MonoBehaviour {
     private void RopeCollisionUpdate() {
         RaycastHit2D hit = Physics2D.Linecast(RopeSource.position, OtherCharacter.RopeSource.position, RopeLayerMask);
         if (hit.collider != null) {
-            Debug.Log(string.Format("hit={0}", hit.collider.gameObject));
+//            Debug.Log(string.Format("hit={0}", hit.collider.gameObject));
             if (hit.collider.gameObject.layer == Layers.GROUND) {
                 LineRenderer.material.color = Color.red;
             } else if (hit.collider.gameObject.layer == Layers.ITEM) {
