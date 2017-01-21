@@ -7,11 +7,23 @@ public class ItemPatternSpawnerController : MonoBehaviour
 	private const string Tag = "ItemPatternSpawnerController";
 	private Level Level;
 
+	private float bottomY;
+	private Transform topMostPatternTransform;
+
 	private void Awake ()
 	{
 		Level = LevelManager.Instance.GetCurrentLevel ();
+
 		CreatePool ();
 		SpawnPattern ();
+		CalculateBottomYPosition ();
+	}
+
+	private void Update ()
+	{
+		if (ShouldSpawnNextPattern ()) {
+			SpawnPattern ();
+		}
 	}
 
 	private void CreatePool ()
@@ -33,9 +45,20 @@ public class ItemPatternSpawnerController : MonoBehaviour
 		}
 	}
 
-	private bool CheckForNewPattern ()
+	private void CalculateBottomYPosition ()
 	{
-		return false;
+		bottomY = Camera.main.ScreenToWorldPoint (new Vector3 (0, 0, 0)).y;
+	}
+
+	private bool ShouldSpawnNextPattern ()
+	{
+		if (topMostPatternTransform == null) {
+			return false;
+		}
+
+		float diff = Mathf.Abs (bottomY - topMostPatternTransform.position.y);
+
+		return diff < 5.0f;
 	}
 
 	private GameObject GetRandomPrefab (Enums.ItemType itemType)
@@ -68,6 +91,7 @@ public class ItemPatternSpawnerController : MonoBehaviour
 	{
 		Pattern pattern = GetPatternFromProbability ();
 		GameObject itemPrefab;
+		float highestYPosition = -1;
 
 		for (int i = 0; i < pattern.ItemNodes.Count; i++) {
 			Pattern.ItemNode itemNode = pattern.ItemNodes [i];
@@ -85,6 +109,13 @@ public class ItemPatternSpawnerController : MonoBehaviour
 
 			GameObject go = PoolManager.Instance.GetFromPool (itemPrefab);
 			go.transform.position = itemNode.Position + pattern.RootPosition;
+
+			Log.LogDebug (Tag, "SpawnPattern name {0}", pattern.name);
+
+			if (itemNode.Position.y > highestYPosition) {
+				highestYPosition = itemNode.Position.y;
+				topMostPatternTransform = go.transform;
+			}
 		}
 	}
 
