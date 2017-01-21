@@ -1,4 +1,4 @@
-﻿Shader "Outfit7/BRDF"
+﻿Shader "GlobalGameJam2017/BRDF"
 {
     Properties
     {
