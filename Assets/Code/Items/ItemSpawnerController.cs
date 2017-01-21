@@ -50,7 +50,7 @@ public class ItemSpawnerController : MonoBehaviour
 		}
 	}
 
-	private void Spawn ()
+	private Spawnable GetSpawnableFromProbability ()
 	{
 		List<Spawnable> qualifiedSpawnable = new List<Spawnable> ();
 
@@ -63,10 +63,20 @@ public class ItemSpawnerController : MonoBehaviour
 		}
 
 		if (qualifiedSpawnable.Count > 0) {
-			Spawnable qualified = qualifiedSpawnable [Random.Range (0, qualifiedSpawnable.Count)];
-			GameObject go = PoolManager.Instance.GetFromPool (qualified.SpawnablePrefab);
+			return qualifiedSpawnable [Random.Range (0, qualifiedSpawnable.Count)];
+		}
+
+		return null;
+	}
+
+	private void Spawn ()
+	{
+		Spawnable spawnable = GetSpawnableFromProbability ();
+
+		if (spawnable != null) {
+			GameObject go = PoolManager.Instance.GetFromPool (spawnable.SpawnablePrefab);
 			go.transform.position = transform.position;
-			go.transform.localScale = Vector3.one * qualified.Scale;
+			go.transform.localScale = Vector3.one * spawnable.Scale;
 		}
 	}
 
