@@ -65,9 +65,9 @@ public class CharacterController : MonoBehaviour {
     private void MoveUpdate() {
 
         // Vertical collision
-        Hit = Physics2D.Raycast(BottomRight.transform.position, Vector3.down, 0.1f);
+        Hit = Physics2D.Raycast(BottomRight.transform.position, Vector3.down, 0.1f, GroundLayerMask);
         if (Hit.collider == null)
-            Hit = Physics2D.Raycast(TopLeft.transform.position, Vector3.down, 0.1f);
+            Hit = Physics2D.Raycast(TopLeft.transform.position, Vector3.down, 0.1f, GroundLayerMask);
         
 //        Debug.DrawRay(BottomRight.transform.position, Vector3.down, Color.red);
 //        Debug.DrawRay(TopLeft.transform.position, Vector3.down, Color.red);
