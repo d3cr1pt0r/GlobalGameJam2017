@@ -1,13 +1,22 @@
 fileFormatVersion: 2
 guid: a35b9da8680338746a9c9e54f80ea3ae
-timeCreated: 1484995936
+timeCreated: 1485018380
 licenseType: Free
 TextureImporter:
-  fileIDToRecycleName: {}
+  fileIDToRecycleName:
+    21300000: robot_01_0
+    21300002: robot_01_1
+    21300004: robot_01_2
+    21300006: robot_01_3
+    21300008: robot_01_4
+    21300010: robot_01_5
+    21300012: robot_01_6
+    21300014: robot_01_7
+    21300016: robot_01_8
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
-    enableMipMap: 1
+    enableMipMap: 0
     sRGBTexture: 1
     linearTexture: 0
     fadeOut: 0
@@ -30,11 +39,11 @@ TextureImporter:
     filterMode: -1
     aniso: -1
     mipBias: -1
-    wrapMode: -1
-  nPOTScale: 1
+    wrapMode: 1
+  nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 0
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -42,9 +51,9 @@ TextureImporter:
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spritePixelsToUnits: 100
   alphaUsage: 1
-  alphaIsTransparency: 0
+  alphaIsTransparency: 1
   spriteTessellationDetail: -1
-  textureType: 0
+  textureType: 8
   textureShape: 1
   maxTextureSizeSet: 0
   compressionQualitySet: 0
@@ -58,9 +67,108 @@ TextureImporter:
     crunchedCompression: 0
     allowsAlphaSplitting: 0
     overridden: 0
+  - buildTarget: Standalone
+    maxTextureSize: 2048
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: robot_01_0
+      rect:
+        serializedVersion: 2
+        x: 88
+        y: 23
+        width: 122
+        height: 123
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_01_1
+      rect:
+        serializedVersion: 2
+        x: 246
+        y: 158
+        width: 107
+        height: 94
+      alignment: 9
+      pivot: {x: 0.53775567, y: 0.22341399}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_01_2
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 167
+        width: 115
+        height: 82
+      alignment: 9
+      pivot: {x: 0.5379434, y: 0.29379886}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_01_3
+      rect:
+        serializedVersion: 2
+        x: 256
+        y: 14
+        width: 92
+        height: 90
+      alignment: 9
+      pivot: {x: 0.48240545, y: 0.48760357}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_01_4
+      rect:
+        serializedVersion: 2
+        x: 399
+        y: 17
+        width: 46
+        height: 45
+      alignment: 9
+      pivot: {x: 0.48814258, y: 0.50000006}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_01_7
+      rect:
+        serializedVersion: 2
+        x: 391
+        y: 78
+        width: 115
+        height: 82
+      alignment: 9
+      pivot: {x: 0.53794, y: 0.29375}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
+    - serializedVersion: 2
+      name: robot_01_8
+      rect:
+        serializedVersion: 2
+        x: 40
+        y: 85
+        width: 64
+        height: 171
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      tessellationDetail: 0
     outline: []
   spritePackingTag: 
   userData: 

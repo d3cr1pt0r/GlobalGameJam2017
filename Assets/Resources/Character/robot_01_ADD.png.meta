@@ -1,16 +1,11 @@
 fileFormatVersion: 2
-guid: e75d5b0ae602feb43bb478929336b6e0
-timeCreated: 1485018771
+guid: a3ff4aa6445cdd747bd6a0d048dbf485
+timeCreated: 1485016406
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: robot_02_0
-    21300002: robot_02_1
-    21300004: robot_02_2
-    21300006: robot_02_3
-    21300008: robot_02_4
-    21300010: robot_02_5
-    21300012: robot_02_6
+    21300000: robot_01_ADD_0
+    21300002: robot_01_ADD_1
   serializedVersion: 4
   mipmaps:
     mipMapMode: 0
@@ -77,33 +72,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: robot_02_0
-      rect:
-        serializedVersion: 2
-        x: 88
-        y: 23
-        width: 122
-        height: 123
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: robot_02_1
-      rect:
-        serializedVersion: 2
-        x: 399
-        y: 17
-        width: 46
-        height: 45
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: robot_02_2
+      name: robot_01_ADD_0
       rect:
         serializedVersion: 2
         x: 256
@@ -116,52 +85,13 @@ TextureImporter:
       outline: []
       tessellationDetail: 0
     - serializedVersion: 2
-      name: robot_02_3
+      name: robot_01_ADD_1
       rect:
         serializedVersion: 2
-        x: 391
-        y: 78
-        width: 115
-        height: 82
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: robot_02_4
-      rect:
-        serializedVersion: 2
-        x: 391
-        y: 167
-        width: 115
-        height: 82
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: robot_02_5
-      rect:
-        serializedVersion: 2
-        x: 246
-        y: 158
-        width: 107
-        height: 94
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      tessellationDetail: 0
-    - serializedVersion: 2
-      name: robot_02_6
-      rect:
-        serializedVersion: 2
-        x: 40
-        y: 85
-        width: 64
-        height: 171
+        x: 399
+        y: 17
+        width: 46
+        height: 45
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
