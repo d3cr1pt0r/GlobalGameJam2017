@@ -6,6 +6,7 @@ public class LevelEditor : MonoBehaviour
 {
 
 	public GameObject LevelPrefab;
+	public Pattern Pattern;
 
 	[HideInInspector] public GameObject LoadedLevel = null;
 

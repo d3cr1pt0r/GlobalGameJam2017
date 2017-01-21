@@ -73,7 +73,11 @@ public class PoolManager
 			}
 			Log.LogDebug (Tag, "Pool {0} ran out of objects", name);
 		}
-		Log.LogDebug (Tag, "Pool does not contain a key {0}", name);
+
+		Log.LogDebug (Tag, "Pool does not contain a key {0}, adding new prefab to pool", name);
+
+		AddToPool (go, 10);
+		return GetFromPool (go);
 
 		return null;
 	}
