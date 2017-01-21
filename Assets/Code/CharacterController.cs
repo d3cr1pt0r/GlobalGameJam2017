@@ -6,10 +6,16 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private float JumpForce = 100;
     [SerializeField] private Transform TopLeft;
     [SerializeField] private Transform BottomRight;
+    [SerializeField] private SpriteRenderer SpriteRenderer;
     [SerializeField] private Rigidbody2D Rigidbody2D;
     [SerializeField] private LayerMask GroundLayerMask;
     [SerializeField] private int PlayerNumber;
     [SerializeField] private LineRenderer LineRenderer;
+    [SerializeField] private CharacterController OtherCharacter;
+    [SerializeField] private AnimationCurve SpringCurve;
+    [SerializeField] private float SpringForce = 100;
+    [SerializeField] private float MinDis = 2;
+    [SerializeField] private float MaxDis = 5;
 
     private bool IsOnGround;
     private Vector3 Speed;
@@ -20,13 +26,19 @@ public class CharacterController : MonoBehaviour {
         // Get input
         float xAxis1 = Input.GetAxis("Horizontal1");
         float xAxis2 = Input.GetAxis("Horizontal2");
+        float xAxis = PlayerNumber == 1 ? xAxis1 : xAxis2;
         bool jump1 = Input.GetButtonDown("JumpP1");
         bool jump2 = Input.GetButtonDown("JumpP2");
+        bool jump = PlayerNumber == 1 ? jump1 : jump2;
 
-        MoveUpdate(PlayerNumber == 1 ? xAxis1 : xAxis2, PlayerNumber == 1 ? jump1 : jump2);
+        // Rotate toward walk direction
+        if (!Mathf.Approximately(xAxis, 0)) {
+            SpriteRenderer.flipX = xAxis < 0;
+        }
 
-        int ropeIndex = PlayerNumber - 1;
-        LineRenderer.SetPosition(ropeIndex, transform.position);
+        MoveUpdate(xAxis, jump);
+        AttractUpdate();
+        RenderRope();
 
         // Reset if fallen down
         if (transform.position.y < -3) {
@@ -45,9 +57,22 @@ public class CharacterController : MonoBehaviour {
         }
 
         float xStep = xAxis * WalkSpeed;
-        float yStep = 0;
 
         // Update position
-        transform.position += new Vector3(xStep, yStep);
+        transform.position += Vector3.right * xStep;
+    }
+
+    private void AttractUpdate() {
+        Vector3 dif = OtherCharacter.transform.position - transform.position;
+        float dis = Vector3.Magnitude(dif);
+        float a = Mathf.Clamp01((dis - MinDis) / (MaxDis - MinDis));
+        float springForce = SpringCurve.Evaluate(a) * SpringForce;
+//        Debug.Log(string.Format("dis={0} a={1}", dis, a));
+        Rigidbody2D.AddForce(dif.normalized * springForce);
+    }
+
+    private void RenderRope() {
+        int ropeIndex = PlayerNumber - 1;
+        LineRenderer.SetPosition(ropeIndex, transform.position);
     }
 }
