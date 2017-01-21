@@ -27,6 +27,7 @@ public class CharacterController : MonoBehaviour {
     private Vector3 Position;
     private float XAxis;
     private bool Jump;
+    private RaycastHit2D Hit;
 
     void Start() {
         Position = transform.position;
@@ -63,13 +64,21 @@ public class CharacterController : MonoBehaviour {
 
     private void MoveUpdate() {
 
-        bool rightRay = Physics2D.Raycast(BottomRight.transform.position, Vector3.down, 0.1f).collider != null;
-        bool leftRay = Physics2D.Raycast(TopLeft.transform.position, Vector3.down, 0.1f).collider != null;
+        // Vertical collision
+        Hit = Physics2D.Raycast(BottomRight.transform.position, Vector3.down, 0.1f);
+        if (Hit.collider == null)
+            Hit = Physics2D.Raycast(TopLeft.transform.position, Vector3.down, 0.1f);
+        
 //        Debug.DrawRay(BottomRight.transform.position, Vector3.down, Color.red);
 //        Debug.DrawRay(TopLeft.transform.position, Vector3.down, Color.red);
-//        IsOnGround = Physics2D.OverlapArea(TopLeft.position, BottomRight.position, GroundLayerMask);
-        IsOnGround = rightRay || leftRay;
+        IsOnGround = Hit.collider != null;
         //        Debug.Log(string.Format("IsOnGround={0}", IsOnGround));
+
+        if (IsOnGround) {
+            Vector3 pos = transform.position;
+            transform.position = pos;
+            Position = transform.position;
+        }
 
         bool noInput = Mathf.Approximately(XAxis, 0);
         if (!noInput && Mathf.Sign(Velocity.x) != Mathf.Sign(XAxis)) {
