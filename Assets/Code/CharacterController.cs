@@ -83,10 +83,12 @@ public class CharacterController : MonoBehaviour {
         RaycastHit2D hit = Physics2D.Linecast(transform.position, OtherCharacter.transform.position, RopeLayerMask);
         if (hit.collider != null) {
             Debug.Log(string.Format("hit={0}", hit.collider.gameObject));
-            if (hit.collider.gameObject.layer == GroundLayerMask) {
+            if (hit.collider.gameObject.layer == Layers.GROUND) {
                 LineRenderer.material.color = Color.red;
             } else {
-                Destroy(hit.collider.gameObject);
+//                Destroy(hit.collider.gameObject);
+                hit.collider.transform.position = Vector3.up * 5 + Vector3.right * Random.Range(-3, 3);
+                hit.collider.GetComponent<Rigidbody2D>().velocity = Vector2.zero;
             }
         } else {
             LineRenderer.material.color = Color.white;
