@@ -14,12 +14,12 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private LayerMask GroundLayerMask;
     [SerializeField] private LayerMask RopeLayerMask;
     [SerializeField] private int PlayerNumber;
-    [SerializeField] private LineRenderer LineRenderer;
     [SerializeField] private CharacterController OtherCharacter;
-    [SerializeField] private AnimationCurve SpringCurve;
-    [SerializeField] private float SpringForce = 100;
-    [SerializeField] private float MinDis = 2;
-    [SerializeField] private float MaxDis = 5;
+
+    [Header("Rope")]
+    [SerializeField] private LineRenderer LineRenderer;
+    [SerializeField] private float RopeForce = 100;
+    [SerializeField] private float RopeLength = 2;
 
     private bool IsOnGround;
     private Vector3 Speed;
@@ -84,6 +84,14 @@ public class CharacterController : MonoBehaviour {
         Velocity.x += XAxis * WalkSpeed;
         Velocity.x = Mathf.Clamp(Velocity.x, -MaxVelocity, MaxVelocity);
 
+        // Spring
+        Vector3 dif = OtherCharacter.transform.position - transform.position;
+        float dis = Vector3.Magnitude(dif);
+        float x = Mathf.Clamp(dis - RopeLength, 0, Mathf.Infinity);
+        float k = RopeForce;
+        float ropeForce = x * k;
+        Velocity += dif.normalized * ropeForce;
+
         // Jumping
         if (IsOnGround) {
             Velocity.y = 0;
@@ -107,18 +115,10 @@ public class CharacterController : MonoBehaviour {
         transform.position = Position;
     }
 
-    private void AttractUpdate() {
-        Vector3 dif = OtherCharacter.transform.position - transform.position;
-        float dis = Vector3.Magnitude(dif);
-        float a = Mathf.Clamp01((dis - MinDis) / (MaxDis - MinDis));
-        float springForce = SpringCurve.Evaluate(a) * SpringForce;
-//        Debug.Log(string.Format("dis={0} a={1}", dis, a));
-        Rigidbody2D.AddForce(dif.normalized * springForce);
-    }
-
     private void RenderRope() {
-        int ropeIndex = PlayerNumber - 1;
-        LineRenderer.SetPosition(ropeIndex, transform.position);
+        if (PlayerNumber == 2) return;
+        LineRenderer.SetPosition(0, transform.position);
+        LineRenderer.SetPosition(1, OtherCharacter.transform.position);
     }
 
     private void RopeCollisionUpdate() {
