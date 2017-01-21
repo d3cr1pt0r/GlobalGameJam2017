@@ -10,13 +10,14 @@ public class ItemController : MonoBehaviour
 	private void OnCollisionEnter2D (Collision2D collision)
 	{
 		if (collision.gameObject.layer == Layers.GROUND) {
-			VfxManager.Instance.EmitItemGroundHitVfx (gameObject.transform.position);
 			PoolManager.Instance.ReturnToPool (gameObject);
 
 			if (ItemType == Enums.ItemType.GOAL) {
+				VfxManager.Instance.EmitGoalGroundHitVfx (gameObject.transform.position);
 				GameStateManager.Instance.GoalItemHitsGround ();
 			}
 			if (ItemType == Enums.ItemType.DEBREE) {
+				VfxManager.Instance.EmitDebreeGroundHitVfx (gameObject.transform.position);
 				GameStateManager.Instance.DebreeItemHitsGround ();
 			}
 		} else if (collision.gameObject.layer == Layers.ROPE) {

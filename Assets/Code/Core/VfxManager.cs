@@ -5,16 +5,23 @@ using UnityEngine;
 public class VfxManager : Singleton<VfxManager>
 {
 
-	[SerializeField] private ParticleSystem ItemGroundHitVfx;
+	[SerializeField] private ParticleSystem GoalGroundHitVfx;
+	[SerializeField] private ParticleSystem DebreeGroundHitVfx;
 
 	protected VfxManager ()
 	{
 	}
 
-	public void EmitItemGroundHitVfx (Vector3 position)
+	public void EmitGoalGroundHitVfx (Vector3 position)
 	{
-		ItemGroundHitVfx.transform.position = position;
-		ItemGroundHitVfx.Play ();
+		GoalGroundHitVfx.transform.position = position;
+		GoalGroundHitVfx.Play ();
+	}
+
+	public void EmitDebreeGroundHitVfx (Vector3 position)
+	{
+		DebreeGroundHitVfx.transform.position = position;
+		DebreeGroundHitVfx.Play ();
 	}
 
 }
