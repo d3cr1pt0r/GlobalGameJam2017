@@ -35,7 +35,7 @@ public class ItemPatternSpawnerController : MonoBehaviour
 
 	private bool CheckForNewPattern ()
 	{
-		
+		return false;
 	}
 
 	private GameObject GetRandomPrefab (Enums.ItemType itemType)
