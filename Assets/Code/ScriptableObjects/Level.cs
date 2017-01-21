@@ -9,4 +9,6 @@ public class Level : ScriptableObject
 	public GameObject LevelPrefab;
 	public Vector3 LevelPosition;
 
+	public int Goal;
+
 }

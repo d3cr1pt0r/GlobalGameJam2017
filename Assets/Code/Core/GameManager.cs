@@ -5,16 +5,12 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
 
-	[SerializeField] private GameObject LevelManagerPrefab;
-	[HideInInspector] public LevelManager LevelManager;
+	[SerializeField] private Universe Universe;
 
 	private void Awake ()
 	{
-		Log.LogDebug ("GameManager Awake()");
-
-		GameObject levelManagerObject = Instantiate (LevelManagerPrefab, Vector3.zero, Quaternion.identity);
-		levelManagerObject.transform.parent = transform;
-		LevelManager = levelManagerObject.GetComponent<LevelManager> ();
+		LevelManager.Instance.SetUniverse (Universe);
+		StartGame ();
 	}
 
 	private void StartGame ()
@@ -40,9 +36,11 @@ public class GameManager : MonoBehaviour
 	private void LoadLevel ()
 	{
 		Level level = LevelManager.Instance.GetCurrentLevel ();
-		GameObject levelObject = Instantiate (level.LevelPrefab, level.LevelPosition, Quaternion.identity);
 
-		levelObject.transform.SetParent (transform, false);
+		if (level != null) {
+			GameObject levelObject = Instantiate (level.LevelPrefab, level.LevelPosition, Quaternion.identity);
+			levelObject.transform.SetParent (transform, false);
+		}
 	}
 
 }

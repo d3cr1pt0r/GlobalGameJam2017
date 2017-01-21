@@ -13,3 +13,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   LevelPrefab: {fileID: 0}
   LevelPosition: {x: 0, y: 0, z: 0}
+  Goal: 0

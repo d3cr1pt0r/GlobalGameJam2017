@@ -11,5 +11,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 335093a6a7ed54f2d814748415dde9d0, type: 3}
   m_Name: Level_1
   m_EditorClassIdentifier: 
-  LevelPrefab: {fileID: 0}
+  LevelPrefab: {fileID: 1908471300214842, guid: ab14d8fed553446ae88a5c0608fec396,
+    type: 2}
   LevelPosition: {x: 0, y: 0, z: 0}
+  Goal: 0

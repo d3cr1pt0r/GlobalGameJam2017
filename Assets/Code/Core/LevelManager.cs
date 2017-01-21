@@ -5,10 +5,10 @@ using UnityEngine;
 public class LevelManager
 {
 
-	public Universe Universe;
 	public GameObject CurrentLoadedLevel;
 	public int CurrentLevel;
 
+	private Universe Universe;
 	private static LevelManager instance;
 
 	private LevelManager ()
@@ -25,9 +25,21 @@ public class LevelManager
 		}
 	}
 
+	public void SetUniverse (Universe universe)
+	{
+		Universe = universe;
+	}
+
 	public Level GetCurrentLevel ()
 	{
-		return Universe.Levels [CurrentLevel];
+		Level level = Universe.Levels [CurrentLevel];
+
+		if (level.LevelPrefab == null) {
+			Log.LogError (string.Format ("Level prefab is not set to an instance of an object: {0}", CurrentLevel));
+			return null;
+		}
+
+		return level;
 	}
 
 	public bool IncreaseLevel ()
