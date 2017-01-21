@@ -147,14 +147,38 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalkSpeed: 0.1
-  JumpForce: 200
+  JumpForce: 250
   TopLeft: {fileID: 4535316079193204}
   BottomRight: {fileID: 4152620280500758}
+  SpriteRenderer: {fileID: 212660914858508118}
   Rigidbody2D: {fileID: 50554324495197914}
   GroundLayerMask:
     serializedVersion: 2
     m_Bits: 256
   PlayerNumber: 1
+  LineRenderer: {fileID: 0}
+  OtherCharacter: {fileID: 0}
+  SpringCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 2
+      time: 0
+      value: 0
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+    - serializedVersion: 2
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 1
+      tangentMode: 34
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 0
+  SpringForce: 100
+  MinDis: 2
+  MaxDis: 5
 --- !u!212 &212660914858508118
 SpriteRenderer:
   m_ObjectHideFlags: 1
