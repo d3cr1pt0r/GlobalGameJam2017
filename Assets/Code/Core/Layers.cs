@@ -3,7 +3,7 @@ public static class Layers
 {
 
 	public static int GROUND = 20;
-	public static int SAFE_NET = 21;
+	public static int ROPE = 21;
 
 
 
