@@ -9,6 +9,7 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private SpriteRenderer SpriteRenderer;
     [SerializeField] private Rigidbody2D Rigidbody2D;
     [SerializeField] private LayerMask GroundLayerMask;
+    [SerializeField] private LayerMask RopeLayerMask;
     [SerializeField] private int PlayerNumber;
     [SerializeField] private LineRenderer LineRenderer;
     [SerializeField] private CharacterController OtherCharacter;
@@ -39,6 +40,7 @@ public class CharacterController : MonoBehaviour {
         MoveUpdate(xAxis, jump);
         AttractUpdate();
         RenderRope();
+        RopeCollisionUpdate();
 
         // Reset if fallen down
         if (transform.position.y < -10) {
@@ -75,5 +77,19 @@ public class CharacterController : MonoBehaviour {
     private void RenderRope() {
         int ropeIndex = PlayerNumber - 1;
         LineRenderer.SetPosition(ropeIndex, transform.position);
+    }
+
+    private void RopeCollisionUpdate() {
+        RaycastHit2D hit = Physics2D.Linecast(transform.position, OtherCharacter.transform.position, RopeLayerMask);
+        if (hit.collider != null) {
+            Debug.Log(string.Format("hit={0}", hit.collider.gameObject));
+            if (hit.collider.gameObject.layer == GroundLayerMask) {
+                LineRenderer.material.color = Color.red;
+            } else {
+                Destroy(hit.collider.gameObject);
+            }
+        } else {
+            LineRenderer.material.color = Color.white;
+        }
     }
 }
