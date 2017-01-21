@@ -1,4 +1,4 @@
-﻿Shader "GlobalGameJam2017/ChromaticAbberation"
+﻿Shader "GlobalGameJam2017/ChromaticAberration"
 {
     Properties
     {
@@ -55,9 +55,9 @@
             	i.uv1 += refraction * _RefractionAmount;
             	i.uv1 = saturate(i.uv1);
 
-            	fixed red = tex2D(_MainTex, i.uv1 + fixed2(_Amount, -_Amount/2)).r;
-            	fixed green = tex2D(_MainTex, i.uv1 + fixed2(-_Amount, _Amount/2)).g;
-            	fixed blue = tex2D(_MainTex, i.uv1 + fixed2(_Amount/2, -_Amount)).b;
+            	fixed red = tex2D(_MainTex, i.uv1 + fixed2(-_Amount, _Amount/3)).r;
+            	fixed green = tex2D(_MainTex, i.uv1 + fixed2(_Amount, -_Amount/3)).g;
+            	fixed blue = tex2D(_MainTex, i.uv1 + fixed2(_Amount/3, _Amount)).b;
 
 				return fixed4(red, green, blue, 1.0);
             }
