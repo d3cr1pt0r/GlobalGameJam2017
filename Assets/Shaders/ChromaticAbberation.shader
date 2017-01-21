@@ -2,7 +2,11 @@
 {
     Properties
     {
-    	_MainTex ("Base (RGB)", 2D) = "white" {}
+    	_MainTex ("Main Texture", 2D) = "white" {}
+    	_RefractionTex("Refraction Texture", 2D) = "black" {}
+
+    	_Amount ("Amount", Range(0, 1)) = 0
+    	_RefractionAmount ("Refraction Amount", Range(-0.5, 0.5)) = 0
     }
     SubShader
     {
@@ -17,6 +21,9 @@
             #include "UnityCG.cginc"
 
             sampler2D _MainTex;
+            sampler2D _RefractionTex;
+            fixed _Amount;
+            half _RefractionAmount;
 
             struct vertex_input
             {
@@ -42,7 +49,17 @@
             
             fixed4 frag (vertex_output i) : SV_Target
             {   
-                return tex2D(_MainTex, i.uv1);
+            	half2 refraction = tex2D(_RefractionTex, i.uv1).rg;
+            	half d = refraction * 2 - 1;
+
+            	i.uv1 += refraction * _RefractionAmount;
+            	i.uv1 = saturate(i.uv1);
+
+            	fixed red = tex2D(_MainTex, i.uv1 + fixed2(_Amount, -_Amount/2)).r;
+            	fixed green = tex2D(_MainTex, i.uv1 + fixed2(-_Amount, _Amount/2)).g;
+            	fixed blue = tex2D(_MainTex, i.uv1 + fixed2(_Amount/2, -_Amount)).b;
+
+				return fixed4(red, green, blue, 1.0);
             }
             ENDCG
         }

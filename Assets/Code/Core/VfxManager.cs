@@ -24,4 +24,9 @@ public class VfxManager : Singleton<VfxManager>
 		DebreeGroundHitVfx.Play ();
 	}
 
+	public void StartChromaticAbberation ()
+	{
+		
+	}
+
 }
