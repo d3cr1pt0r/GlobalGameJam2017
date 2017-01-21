@@ -147,7 +147,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WalkSpeed: 0.1
-  JumpForce: 200
+  JumpForce: 250
   TopLeft: {fileID: 4822591421372176}
   BottomRight: {fileID: 4527526005712402}
   SpriteRenderer: {fileID: 212660390690176996}

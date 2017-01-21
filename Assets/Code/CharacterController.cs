@@ -41,7 +41,7 @@ public class CharacterController : MonoBehaviour {
         RenderRope();
 
         // Reset if fallen down
-        if (transform.position.y < -3) {
+        if (transform.position.y < -10) {
             transform.position = Vector3.zero;
             Rigidbody2D.velocity = Vector2.zero;
         }
@@ -59,7 +59,8 @@ public class CharacterController : MonoBehaviour {
         float xStep = xAxis * WalkSpeed;
 
         // Update position
-        transform.position += Vector3.right * xStep;
+//        transform.position += Vector3.right * xStep;
+        Rigidbody2D.AddForce(Vector3.right * xAxis * 10);
     }
 
     private void AttractUpdate() {
