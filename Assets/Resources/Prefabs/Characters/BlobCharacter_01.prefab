@@ -154,7 +154,10 @@ MonoBehaviour:
   Rigidbody2D: {fileID: 50554324495197914}
   GroundLayerMask:
     serializedVersion: 2
-    m_Bits: 256
+    m_Bits: 1048832
+  RopeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1049344
   PlayerNumber: 1
   LineRenderer: {fileID: 0}
   OtherCharacter: {fileID: 0}
@@ -164,20 +167,20 @@ MonoBehaviour:
     - serializedVersion: 2
       time: 0
       value: 0
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
     - serializedVersion: 2
       time: 1
       value: 1
-      inSlope: 1
-      outSlope: 1
-      tangentMode: 34
+      inSlope: 2
+      outSlope: 2
+      tangentMode: 0
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
   SpringForce: 100
-  MinDis: 2
+  MinDis: 1
   MaxDis: 5
 --- !u!212 &212660914858508118
 SpriteRenderer:

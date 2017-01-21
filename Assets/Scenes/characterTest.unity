@@ -152,46 +152,6 @@ Prefab:
       propertyPath: OtherCharacter
       value: 
       objectReference: {fileID: 349122990}
-    - target: {fileID: 114806509134025496, guid: bbb2a28ea204b4867b1669dff0b119c7,
-        type: 2}
-      propertyPath: MinDis
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114806509134025496, guid: bbb2a28ea204b4867b1669dff0b119c7,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114806509134025496, guid: bbb2a28ea204b4867b1669dff0b119c7,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[0].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114806509134025496, guid: bbb2a28ea204b4867b1669dff0b119c7,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114806509134025496, guid: bbb2a28ea204b4867b1669dff0b119c7,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[1].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114806509134025496, guid: bbb2a28ea204b4867b1669dff0b119c7,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[1].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114806509134025496, guid: bbb2a28ea204b4867b1669dff0b119c7,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114806509134025496, guid: bbb2a28ea204b4867b1669dff0b119c7,
-        type: 2}
-      propertyPath: RopeLayerMask.m_Bits
-      value: 768
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bbb2a28ea204b4867b1669dff0b119c7, type: 2}
   m_IsPrefabParent: 0
@@ -331,46 +291,6 @@ Prefab:
       propertyPath: OtherCharacter
       value: 
       objectReference: {fileID: 116565535}
-    - target: {fileID: 114214712296575606, guid: c55b4db476a32b744af4ccdb577a20fd,
-        type: 2}
-      propertyPath: MinDis
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 114214712296575606, guid: c55b4db476a32b744af4ccdb577a20fd,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[0].inSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114214712296575606, guid: c55b4db476a32b744af4ccdb577a20fd,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[0].outSlope
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114214712296575606, guid: c55b4db476a32b744af4ccdb577a20fd,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[0].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114214712296575606, guid: c55b4db476a32b744af4ccdb577a20fd,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[1].inSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114214712296575606, guid: c55b4db476a32b744af4ccdb577a20fd,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[1].outSlope
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 114214712296575606, guid: c55b4db476a32b744af4ccdb577a20fd,
-        type: 2}
-      propertyPath: SpringCurve.m_Curve.Array.data[1].tangentMode
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 114214712296575606, guid: c55b4db476a32b744af4ccdb577a20fd,
-        type: 2}
-      propertyPath: RopeLayerMask.m_Bits
-      value: 768
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: c55b4db476a32b744af4ccdb577a20fd, type: 2}
   m_IsPrefabParent: 0
@@ -433,6 +353,10 @@ Prefab:
       propertyPath: m_Parameters.colorGradient.key1.rgba
       value: 4278190335
       objectReference: {fileID: 0}
+    - target: {fileID: 1087325273118846, guid: cc9bc93c3d87e4692919a9dc41b98dde, type: 2}
+      propertyPath: m_Layer
+      value: 21
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: cc9bc93c3d87e4692919a9dc41b98dde, type: 2}
   m_IsPrefabParent: 0
@@ -447,7 +371,7 @@ GameObject:
   - component: {fileID: 1831139619}
   - component: {fileID: 1831139618}
   - component: {fileID: 1831139617}
-  m_Layer: 8
+  m_Layer: 20
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
