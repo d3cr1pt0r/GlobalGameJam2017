@@ -5,6 +5,8 @@ using System;
 
 public class GameStateManager
 {
+	private const string Tag = "GameStateManager";
+
 	public Action OnGoalItemHitsSafeNet;
 	public Action OnGoalItemHitsGround;
 
@@ -18,7 +20,7 @@ public class GameStateManager
 
 	private GameStateManager ()
 	{
-		
+		Log.LogDebug (Tag, "Awake");
 	}
 
 	public static GameStateManager Instance {
@@ -42,6 +44,8 @@ public class GameStateManager
 	{	
 		NrGoalItemsCought++;
 
+		Log.LogDebug (Tag, "GoalItemsHitsSafeNet NrGoalItemsCought: {0}", NrGoalItemsCought);
+
 		if (OnGoalItemHitsSafeNet != null)
 			OnGoalItemHitsSafeNet ();
 	}
@@ -49,6 +53,8 @@ public class GameStateManager
 	public void GoalItemHitsGround ()
 	{
 		Lives--;
+
+		Log.LogDebug (Tag, "GoalItemHitsGround Lives: {0}", Lives);
 
 		if (OnGoalItemHitsGround != null)
 			OnGoalItemHitsGround ();	
@@ -61,6 +67,8 @@ public class GameStateManager
 		Lives--;
 		NrDebreeItemsCought++;
 
+		Log.LogDebug (Tag, "GoalItemHitsGround NrDebreeItemsCought: {0} Lives: {1}", NrDebreeItemsCought, Lives);
+
 		if (OnDebreeItemHitsSafeNet != null)
 			OnDebreeItemHitsSafeNet ();
 
@@ -69,6 +77,8 @@ public class GameStateManager
 
 	public void DebreeItemHitsGround ()
 	{
+		Log.LogDebug (Tag, "DebreeItemHitsGround");
+
 		if (OnDebreeItemHitsGround != null)
 			OnDebreeItemHitsGround ();	
 	}
@@ -77,6 +87,7 @@ public class GameStateManager
 	{
 		if (Lives <= 0) {
 			if (OnGameOver != null) {
+				Log.LogDebug (Tag, "OnGameOver");
 				OnGameOver ();
 			}
 		}

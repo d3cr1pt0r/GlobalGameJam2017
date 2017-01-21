@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class LevelManager
 {
+	private const string Tag = "LevelManager";
 
 	public GameObject CurrentLoadedLevel;
 	public int CurrentLevel;
@@ -13,7 +14,7 @@ public class LevelManager
 
 	private LevelManager ()
 	{
-		Log.LogDebug ("LevelManager Awake()");
+		Log.LogDebug (Tag, "Awake");
 	}
 
 	public static LevelManager Instance {
@@ -35,7 +36,7 @@ public class LevelManager
 		Level level = Universe.Levels [CurrentLevel];
 
 		if (level.LevelPrefab == null) {
-			Log.LogError (string.Format ("Level prefab is not set to an instance of an object: {0}", CurrentLevel));
+			Log.LogError (Tag, "Level prefab is not set to an instance of an object: {0}", CurrentLevel);
 			return null;
 		}
 
@@ -47,7 +48,7 @@ public class LevelManager
 		CurrentLevel += 1;
 
 		if (CurrentLevel > Universe.Levels.Count - 1) {
-			Log.LogWarning (string.Format ("Level {0} does't exist", CurrentLevel));
+			Log.LogWarning (Tag, "Level {0} does't exist", CurrentLevel);
 			return false;
 		}
 

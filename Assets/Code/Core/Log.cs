@@ -12,24 +12,24 @@ public static class Log
 		LogEnabled = enabled;
 	}
 
-	public static void LogDebug (string s)
+	public static void LogDebug (string tag, string s, params object[] args)
 	{
 		if (LogEnabled) {
-			Debug.Log (s);
+			Debug.Log (tag + ": " + string.Format (s, args));
 		}
 	}
 
-	public static void LogWarning (string s)
+	public static void LogWarning (string tag, string s, params object[] args)
 	{
 		if (LogEnabled) {
-			Debug.LogWarning (s);
+			Debug.LogWarning (tag + ": " + string.Format (s, args));
 		}
 	}
 
-	public static void LogError (string s)
+	public static void LogError (string tag, string s, params object[] args)
 	{
 		if (LogEnabled) {
-			Debug.LogError (s);
+			Debug.LogError (tag + ": " + string.Format (s, args));
 		}
 	}
 

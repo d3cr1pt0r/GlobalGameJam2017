@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpawnerController : MonoBehaviour
 {
+	public static string Tag = "SpawnerController";
+
 	public float SpawnRate;
 	public List<Spawnable> Spawnables;
 
@@ -19,6 +21,9 @@ public class SpawnerController : MonoBehaviour
 
 	private void Awake ()
 	{
+		Log.LogDebug (Tag, "Awake");
+
+		Enabled = true;
 		CreatePool ();
 	}
 

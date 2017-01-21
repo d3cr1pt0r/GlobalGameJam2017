@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class PoolManager
 {
+	private const string Tag = "PoolManager";
 
 	private static PoolManager instance;
 	private Dictionary<string, List<GameObject>> PoolInactive;
@@ -14,6 +15,8 @@ public class PoolManager
 
 	private PoolManager ()
 	{
+		Log.LogDebug (Tag, "Awake");
+
 		PoolInactive = new Dictionary<string, List<GameObject>> ();
 		PoolActive = new Dictionary<string, List<GameObject>> ();
 
@@ -65,12 +68,12 @@ public class PoolManager
 				g.transform.SetParent (activePoolObject.transform);
 				PoolInactive [name].Remove (g);
 				PoolActive [name].Add (g);
+				Log.LogDebug (Tag, "GetFromPool {0}", g.name);
 				return g;
 			}
-			Log.LogDebug (string.Format ("Pool {0} ran out of objects", name));
+			Log.LogDebug (Tag, "Pool {0} ran out of objects", name);
 		}
-
-		Log.LogDebug (string.Format ("Pool does not contain a key {0}", name));
+		Log.LogDebug (Tag, "Pool does not contain a key {0}", name);
 
 		return null;
 	}
@@ -88,7 +91,7 @@ public class PoolManager
 					g.transform.SetParent (inactivePoolObjects.transform);
 					PoolActive [name].Remove (g);
 					PoolInactive [name].Add (g);
-
+					Log.LogDebug (Tag, "ReturnToPool {0}", g.name);
 					break;
 				}
 			}
