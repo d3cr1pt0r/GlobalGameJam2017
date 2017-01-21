@@ -29,8 +29,6 @@ public class ChromaticAberration : MonoBehaviour
 			float val = AmountCurve.Evaluate (ChromaticAberrationTimer);
 			ChromaticAberrationTimer += Time.deltaTime * CurveSpeed;
 
-			Log.LogWarning (Tag, "Update ChromaticAberrationTimer: {0}", ChromaticAberrationTimer);
-
 			ChromaticAberrationMaterial.SetFloat (AmountID, val);
 		}
 	}
