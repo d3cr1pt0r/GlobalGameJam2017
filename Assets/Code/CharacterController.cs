@@ -9,8 +9,7 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private float Gravity = -1;
     [SerializeField] private Transform TopLeft;
     [SerializeField] private Transform BottomRight;
-    [SerializeField] private SpriteRenderer SpriteRenderer;
-    [SerializeField] private Rigidbody2D Rigidbody2D;
+    [SerializeField] private GameObject Graphics;
     [SerializeField] private LayerMask GroundLayerMask;
     [SerializeField] private LayerMask RopeLayerMask;
     [SerializeField] private int PlayerNumber;
@@ -43,15 +42,12 @@ public class CharacterController : MonoBehaviour {
         Jump = PlayerNumber == 1 ? jump1 : jump2;
 
         // Rotate toward walk direction
-        if (!Mathf.Approximately(XAxis, 0)) {
-            SpriteRenderer.flipX = XAxis < 0;
-        }
+        Vector3 dif = OtherCharacter.transform.position - transform.position;
+        float dir = Mathf.Sign(Vector3.Dot(Vector3.right, dif));
+        Graphics.transform.localScale = new Vector3(dir, 1, 1);
 
-//        MoveUpdate();
-//        AttractUpdate();
         RenderRope();
         RopeCollisionUpdate();
-
     }
 
     void FixedUpdate() {
@@ -59,7 +55,6 @@ public class CharacterController : MonoBehaviour {
         // Reset if fallen down
         if (transform.position.y < -10) {
             transform.position = Vector3.zero;
-            Rigidbody2D.velocity = Vector2.zero;
             Position = Vector3.zero;
             Velocity = Vector3.zero;
         }
