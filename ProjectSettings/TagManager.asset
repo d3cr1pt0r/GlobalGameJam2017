@@ -13,7 +13,7 @@ TagManager:
   - UI
   - 
   - 
-  - Ground
+  - 
   - Objects
   - 
   - 
@@ -25,8 +25,8 @@ TagManager:
   - 
   - 
   - 
-  - 
-  - 
+  - Ground
+  - Rope
   - 
   - 
   - 
