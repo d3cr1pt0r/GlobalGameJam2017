@@ -8,6 +8,8 @@ public class VfxManager : Singleton<VfxManager>
 	[SerializeField] private ParticleSystem GoalGroundHitVfx;
 	[SerializeField] private ParticleSystem DebreeGroundHitVfx;
 
+	[SerializeField] private ChromaticAberration ChromaticAberration;
+
 	protected VfxManager ()
 	{
 	}
@@ -26,7 +28,7 @@ public class VfxManager : Singleton<VfxManager>
 
 	public void StartChromaticAbberation ()
 	{
-		
+		ChromaticAberration.StartVfx ();
 	}
 
 }

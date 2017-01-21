@@ -20,15 +20,19 @@ public class ItemController : MonoBehaviour
 				VfxManager.Instance.EmitDebreeGroundHitVfx (gameObject.transform.position);
 				GameStateManager.Instance.DebreeItemHitsGround ();
 			}
-		} else if (collision.gameObject.layer == Layers.ROPE) {
-			PoolManager.Instance.ReturnToPool (gameObject);
+		}
+	}
 
-			if (ItemType == Enums.ItemType.GOAL) {
-				GameStateManager.Instance.GoalItemHitsSafeNet ();
-			}
-			if (ItemType == Enums.ItemType.DEBREE) {
-				GameStateManager.Instance.DebreeItemHitsSafeNet ();
-			}
+	public void OnCollisionEnterRope ()
+	{
+		PoolManager.Instance.ReturnToPool (gameObject);
+
+		if (ItemType == Enums.ItemType.GOAL) {
+			GameStateManager.Instance.GoalItemHitsSafeNet ();
+		}
+		if (ItemType == Enums.ItemType.DEBREE) {
+			VfxManager.Instance.StartChromaticAbberation ();
+			GameStateManager.Instance.DebreeItemHitsSafeNet ();
 		}
 	}
 
