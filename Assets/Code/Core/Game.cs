@@ -2,61 +2,57 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : Singleton<VfxManager>
-{
-	private const string Tag = "GameManager";
+public class Game : Singleton<VfxManager> {
+    private const string Tag = "GameManager";
 
-	[SerializeField] private Universe Universe;
+    [SerializeField] private Universe Universe;
+    [SerializeField] public GameObject CameraHolder;
+    [SerializeField] public float Parallax;
 
-	protected Game ()
-	{
-	}
+    public static Game Instance;
 
-	private void Awake ()
-	{
-		Log.LogDebug (Tag, "Awake");
+    protected Game() {
+    }
 
-		LevelManager.Instance.SetUniverse (Universe);
-		StartGame ();
-	}
+    private void Awake() {
+        Log.LogDebug(Tag, "Awake");
+        Instance = this;
 
-	private void StartGame ()
-	{
-		LoadCurrentLevel ();
-	}
+        LevelManager.Instance.SetUniverse(Universe);
+        StartGame();
+    }
 
-	private void PauseGame ()
-	{
+    private void StartGame() {
+        LoadCurrentLevel();
+    }
+
+    private void PauseGame() {
 	
-	}
+    }
 
-	private void StopGame ()
-	{
+    private void StopGame() {
 		
-	}
+    }
 
-	private void LoadNextLevel ()
-	{
+    private void LoadNextLevel() {
 		
-	}
+    }
 
-	private void LoadCurrentLevel ()
-	{
-		Level level = LevelManager.Instance.GetCurrentLevel ();
+    private void LoadCurrentLevel() {
+        Level level = LevelManager.Instance.GetCurrentLevel();
 
-		if (level != null) {
-			GameObject levelObject = Instantiate (level.LevelPrefab, level.LevelPosition, Quaternion.identity);
-			levelObject.transform.SetParent (transform, false);
-			LevelManager.Instance.CurrentLoadedLevel = levelObject;
-		}
-	}
+        if (level != null) {
+            GameObject levelObject = Instantiate(level.LevelPrefab, level.LevelPosition, Quaternion.identity);
+            levelObject.transform.SetParent(transform, false);
+            LevelManager.Instance.CurrentLoadedLevel = levelObject;
+        }
+    }
 
-	private void UnloadCurrentLevel ()
-	{
-		if (LevelManager.Instance.CurrentLoadedLevel != null) {
-			GameObject.Destroy (LevelManager.Instance.CurrentLoadedLevel);
-			LevelManager.Instance.CurrentLoadedLevel = null;
-		}
-	}
+    private void UnloadCurrentLevel() {
+        if (LevelManager.Instance.CurrentLoadedLevel != null) {
+            GameObject.Destroy(LevelManager.Instance.CurrentLoadedLevel);
+            LevelManager.Instance.CurrentLoadedLevel = null;
+        }
+    }
 
 }
