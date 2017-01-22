@@ -40,9 +40,24 @@ public class GameStateManager
 
 	public int NrDebreeItemsCought { get; private set; }
 
+	public void SetLives (int lives)
+	{
+		Lives = lives;
+
+	}
+
+	public void UpdateUI ()
+	{
+		Game.Instance.UIController.SetScore (Score);
+		Game.Instance.UIController.SetLives (Lives);
+	}
+
 	public void GoalItemHitsSafeNet ()
 	{	
 		NrGoalItemsCought++;
+		Score += 10;
+
+		UpdateUI ();
 
 		Log.LogDebug (Tag, "GoalItemsHitsSafeNet NrGoalItemsCought: {0}", NrGoalItemsCought);
 
@@ -53,6 +68,10 @@ public class GameStateManager
 	public void GoalItemHitsGround ()
 	{
 		Lives--;
+
+		UpdateUI ();
+
+		Game.Instance.UIController.SetLives (Lives);
 
 		Log.LogDebug (Tag, "GoalItemHitsGround Lives: {0}", Lives);
 
@@ -66,6 +85,8 @@ public class GameStateManager
 	{
 		Lives--;
 		NrDebreeItemsCought++;
+
+		UpdateUI ();
 
 		Log.LogDebug (Tag, "GoalItemHitsGround NrDebreeItemsCought: {0} Lives: {1}", NrDebreeItemsCought, Lives);
 
