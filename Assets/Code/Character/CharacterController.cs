@@ -45,6 +45,7 @@ public class CharacterController : MonoBehaviour
 	private float TurnHeadDelay;
 	private Vector3 PrevPos;
 	private bool IsControlsActive;
+	private bool WasLastHitLegal;
 
 	public void Reset ()
 	{
@@ -187,14 +188,18 @@ public class CharacterController : MonoBehaviour
 //            Debug.Log(string.Format("hit={0}", hit.collider.gameObject));
 			if (hit.collider.gameObject.layer == Layers.GROUND) {
 				LineRenderer.material.SetTexture ("_MainTexture", InvalidTexture);
+				WasLastHitLegal = false;
 			} else if (hit.collider.gameObject.layer == Layers.ITEM) {
 //              Destroy(hit.collider.gameObject);
 //				hit.collider.transform.position = Vector3.up * 5 + Vector3.right * Random.Range (-3, 3);
 //				hit.collider.GetComponent<Rigidbody2D> ().velocity = Vector2.zero;
-				hit.collider.GetComponent<ItemController> ().OnCollisionEnterRope ();
+				if (WasLastHitLegal) {
+					hit.collider.GetComponent<ItemController> ().OnCollisionEnterRope ();
+				}
 			}
 		} else {
 			LineRenderer.material.SetTexture ("_MainTexture", ValidTexture);
+			WasLastHitLegal = true;
 		}
 	}
 }

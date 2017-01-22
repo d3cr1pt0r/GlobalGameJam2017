@@ -57,7 +57,7 @@ public class GameStateManager
 		NrGoalItemsCought++;
 		Score += 10;
 
-        AudioController.Instance.PlayMusic(MusicType.CollectedSound);
+		AudioController.Instance.PlayMusic (MusicType.CollectedSound);
 
 		UpdateUI ();
 
@@ -69,7 +69,7 @@ public class GameStateManager
 
 	public void GoalItemHitsGround ()
 	{
-        AudioController.Instance.PlayMusic(MusicType.FailSound);
+		AudioController.Instance.PlayMusic (MusicType.FailSound);
 
 		Lives--;
 
@@ -87,7 +87,7 @@ public class GameStateManager
 
 	public void DebreeItemHitsSafeNet ()
 	{
-        AudioController.Instance.PlayMusic(MusicType.FailSound);
+		AudioController.Instance.PlayMusic (MusicType.FailSound);
 
 		Lives--;
 		NrDebreeItemsCought++;
@@ -106,7 +106,7 @@ public class GameStateManager
 	{
 		Log.LogDebug (Tag, "DebreeItemHitsGround");
 
-        AudioController.Instance.PlayMusic(MusicType.FailSound);
+		AudioController.Instance.PlayMusic (MusicType.FailSound);
 
 		if (OnDebreeItemHitsGround != null)
 			OnDebreeItemHitsGround ();	
@@ -122,7 +122,7 @@ public class GameStateManager
 
 	public void CheckGameOver ()
 	{
-		if (Lives <= 0) {
+		if (Lives <= 0 && Game.Instance.IsPlaying) {
 			if (OnGameOver != null) {
 				Log.LogDebug (Tag, "OnGameOver");
 				OnGameOver ();

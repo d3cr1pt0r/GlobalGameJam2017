@@ -13,6 +13,8 @@ public class Game : Singleton<Game>
 	[SerializeField] public CharacterController CharacterControllerP1;
 	[SerializeField] public CharacterController CharacterControllerP2;
 
+	public bool IsPlaying;
+
 	public float Parallax;
 	public GameObject CameraHolder;
 
@@ -24,6 +26,7 @@ public class Game : Singleton<Game>
 	{
 		Log.LogDebug (Tag, "Awake");
 
+		IsPlaying = false;
 		GameStateManager.Instance.OnLevelComplete += LevelComplete;
 
 		LevelManager.Instance.SetUniverse (Universe);
@@ -32,11 +35,11 @@ public class Game : Singleton<Game>
 
 	}
 
-    private void StartGame ()
-    {
-        AudioController.Instance.PlayMusic(MusicType.GameOver,false);
-        AudioController.Instance.PlayMusic(MusicType.Full);
-        GameStateManager.Instance.OnGameOver += GameOver;
+	private void StartGame ()
+	{
+		AudioController.Instance.PlayMusic (MusicType.GameOver, false);
+		AudioController.Instance.PlayMusic (MusicType.Full);
+		GameStateManager.Instance.OnGameOver += GameOver;
 		LoadCurrentLevel ();
 	}
 
@@ -53,6 +56,8 @@ public class Game : Singleton<Game>
 	public void LevelComplete ()
 	{
 		UIController.Instance.SetContinuePanelEnabled (true);
+		LevelManager.Instance.CurrentLoadedLevel.GetComponent<ItemPatternSpawnerController> ().SetEnabled (false);
+		IsPlaying = false;
 	}
 
 	private void GameOver ()
@@ -65,12 +70,13 @@ public class Game : Singleton<Game>
 		CharacterControllerP1.SetControlsActive (false);
 		CharacterControllerP2.SetControlsActive (false);
 
-        AudioController.Instance.PlayMusic(MusicType.Full, false);
-        AudioController.Instance.PlayMusic(MusicType.GameOver);
-//        AudioController.Instance.PlayGameOver(MusicType.GameOver);
-        GameStateManager.Instance.OnGameOver -= GameOver;
+		AudioController.Instance.PlayMusic (MusicType.Full, false);
+		AudioController.Instance.PlayMusic (MusicType.GameOver);
+		GameStateManager.Instance.OnGameOver -= GameOver;
 
-        Debug.Log("Game over");
+		IsPlaying = false;
+
+		Debug.Log ("Game over");
 	}
 
 	public void Quit ()
@@ -103,6 +109,8 @@ public class Game : Singleton<Game>
 
 			CharacterControllerP1.SetControlsActive (true);
 			CharacterControllerP2.SetControlsActive (true);
+
+			IsPlaying = true;
 
 			GameStateManager.Instance.SetLives (level.Lives);
 			GameStateManager.Instance.ResetScore ();
