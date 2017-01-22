@@ -108,7 +108,10 @@ public class ItemPatternSpawnerController : MonoBehaviour
 			}
 
 			GameObject go = PoolManager.Instance.GetFromPool (itemPrefab);
+
 			go.transform.position = itemNode.Position + pattern.RootPosition;
+			go.transform.rotation = Quaternion.Euler (itemNode.Rotation);
+			go.transform.localScale = itemNode.Scale;
 
 			Log.LogDebug (Tag, "SpawnPattern name {0}", pattern.name);
 

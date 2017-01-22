@@ -110,7 +110,12 @@ public class LevelEditorGUI : Editor
 				itemPrefab = itemNode.ItemPrefab;
 			}
 
-			itemPrefab = Instantiate (itemPrefab, itemNode.Position, Quaternion.identity);
+			itemPrefab = Instantiate (itemPrefab);
+
+			itemPrefab.transform.position = itemNode.Position;
+			itemPrefab.transform.rotation = Quaternion.Euler (itemNode.Rotation);
+			itemPrefab.transform.localScale = itemNode.Scale;
+
 			itemPrefab.transform.SetParent (container.transform);
 		}
 	}
@@ -157,12 +162,11 @@ public class LevelEditorGUI : Editor
 
 				GameObject originalItemPrefab = AssetDatabase.LoadAssetAtPath (path, typeof(GameObject)) as GameObject;
 
-				Debug.Log (path);
-				Debug.Log (originalItemPrefab);
-
 				itemNode.ItemPrefab = originalItemPrefab;
 				itemNode.ItemType = patternItem.GetComponent<ItemController> ().GetItemType ();
 				itemNode.Position = patternItem.transform.position;
+				itemNode.Rotation = patternItem.transform.rotation.eulerAngles;
+				itemNode.Scale = patternItem.transform.localScale;
 			}
 
 			pattern.ItemNodes.Add (itemNode);

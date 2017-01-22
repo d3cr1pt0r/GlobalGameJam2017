@@ -10,7 +10,10 @@ public class Pattern : ScriptableObject
 	{
 		public Enums.ItemType ItemType;
 		public GameObject ItemPrefab;
+
 		public Vector3 Position;
+		public Vector3 Rotation;
+		public Vector3 Scale = Vector3.one;
 	}
 
 	public List<ItemNode> ItemNodes;
