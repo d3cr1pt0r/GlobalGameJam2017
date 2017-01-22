@@ -48,8 +48,8 @@ public class GameStateManager
 
 	public void UpdateUI ()
 	{
-		Game.Instance.UIController.SetScore (Score);
-		Game.Instance.UIController.SetLives (Lives);
+		UIController.Instance.SetScore (Score);
+		UIController.Instance.SetLives (Lives);
 	}
 
 	public void GoalItemHitsSafeNet ()
@@ -71,7 +71,7 @@ public class GameStateManager
 
 		UpdateUI ();
 
-		Game.Instance.UIController.SetLives (Lives);
+		UIController.Instance.SetLives (Lives);
 
 		Log.LogDebug (Tag, "GoalItemHitsGround Lives: {0}", Lives);
 
@@ -117,6 +117,11 @@ public class GameStateManager
 	private void CheckLevelComplete ()
 	{
 
+	}
+
+	public void ResetScore ()
+	{
+		Score = 0;
 	}
 
 }

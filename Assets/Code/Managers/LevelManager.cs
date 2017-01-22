@@ -15,6 +15,7 @@ public class LevelManager
 	private LevelManager ()
 	{
 		Log.LogDebug (Tag, "Awake");
+		CurrentLevel = 0;
 	}
 
 	public static LevelManager Instance {
@@ -53,6 +54,11 @@ public class LevelManager
 		}
 
 		return true;
+	}
+
+	public void ResetCurrentLevel ()
+	{
+		CurrentLevel = 0;
 	}
 
 	public bool IsLastLevel ()

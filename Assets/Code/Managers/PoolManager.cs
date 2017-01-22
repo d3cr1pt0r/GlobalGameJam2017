@@ -37,6 +37,20 @@ public class PoolManager
 		}
 	}
 
+	public void CreateContainerTransforms ()
+	{
+		if (GameObject.Find ("PoolManager")) {
+			return;
+		}
+
+		rootPoolObject = new GameObject ("PoolManager");
+		inactivePoolObjects = new GameObject ("Inactive");
+		activePoolObject = new GameObject ("Active");
+
+		inactivePoolObjects.transform.SetParent (rootPoolObject.transform);
+		activePoolObject.transform.SetParent (rootPoolObject.transform);
+	}
+
 	public void AddToPool (GameObject go, int n)
 	{
 		string name = GetName (go);
@@ -100,6 +114,20 @@ public class PoolManager
 				}
 			}
 		}
+	}
+
+	public void DestroyPool ()
+	{
+		var children = new List<GameObject> ();
+
+		foreach (Transform child in activePoolObject.transform)
+			children.Add (child.gameObject);
+		children.ForEach (child => GameObject.Destroy (child));
+
+		children = new List<GameObject> ();
+		foreach (Transform child in inactivePoolObjects.transform)
+			children.Add (child.gameObject);
+		children.ForEach (child => GameObject.Destroy (child));
 	}
 
 	private string GetName (GameObject go)
