@@ -7,14 +7,22 @@ public class ItemController : MonoBehaviour
 
 	[SerializeField] private Enums.ItemType ItemType;
 
+	private Rigidbody2D rigidBody2D;
+
 	public Enums.ItemType GetItemType ()
 	{
 		return ItemType;
 	}
 
+	private void Awake ()
+	{
+		rigidBody2D = GetComponent<Rigidbody2D> ();
+	}
+
 	private void OnCollisionEnter2D (Collision2D collision)
 	{
 		if (collision.gameObject.layer == Layers.GROUND) {
+			ResetRigidBodyPhysics ();
 			PoolManager.Instance.ReturnToPool (gameObject);
 
 			if (ItemType == Enums.ItemType.GOAL) {
@@ -30,6 +38,7 @@ public class ItemController : MonoBehaviour
 
 	public void OnCollisionEnterRope ()
 	{
+		ResetRigidBodyPhysics ();
 		PoolManager.Instance.ReturnToPool (gameObject);
 
 		if (ItemType == Enums.ItemType.GOAL) {
@@ -39,6 +48,13 @@ public class ItemController : MonoBehaviour
 			VfxManager.Instance.StartChromaticAbberation ();
 			GameStateManager.Instance.DebreeItemHitsSafeNet ();
 		}
+	}
+
+	private void ResetRigidBodyPhysics ()
+	{
+		rigidBody2D.velocity = Vector3.zero;
+		rigidBody2D.angularVelocity = 0.0f;
+		rigidBody2D.inertia = 0.0f;
 	}
 
 }
