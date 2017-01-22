@@ -24,13 +24,15 @@ public class UIController : Singleton<UIController>
 
 	public void OnButtonPlayClick ()
 	{
-        AudioController.Instance.PlayMusic(MusicType.GameOver,false);
-        AudioController.Instance.PlayMusic(MusicType.Full);
-		Game.Instance.LoadNextLevel ();
+		AudioController.Instance.PlayMusic (MusicType.GameOver, false);
+		AudioController.Instance.PlayMusic (MusicType.Full);
+
 		SetMainMenuEnabled (false);
 		SetGameOverDialogEnabled (false);
 		SetContinuePanelEnabled (false);
 		SetScorePanelEnabled (true);
+
+		Game.Instance.LoadNextLevel ();
 	}
 
 	public void OnButtonQuitClick ()
