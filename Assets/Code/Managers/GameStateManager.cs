@@ -104,6 +104,14 @@ public class GameStateManager
 			OnDebreeItemHitsGround ();	
 	}
 
+	public void LevelComplete ()
+	{
+		Log.LogDebug (Tag, "LevelComplete");
+
+		if (OnLevelComplete != null)
+			OnLevelComplete ();
+	}
+
 	public void CheckGameOver ()
 	{
 		if (Lives <= 0) {
@@ -112,11 +120,6 @@ public class GameStateManager
 				OnGameOver ();
 			}
 		}
-	}
-
-	private void CheckLevelComplete ()
-	{
-
 	}
 
 	public void ResetScore ()

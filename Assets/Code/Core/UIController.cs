@@ -5,10 +5,12 @@ using UnityEngine.UI;
 
 public class UIController : Singleton<UIController>
 {
+	private const string Tag = "UIController";
 
 	[SerializeField] private GameObject MainPanel;
 	[SerializeField] private GameObject MainMenuPanel;
 	[SerializeField] private GameObject GameOverPanel;
+	[SerializeField] private GameObject GameContinuePanel;
 	[SerializeField] private GameObject ScorePanel;
 
 	[SerializeField] private Text TextScore;
@@ -25,6 +27,7 @@ public class UIController : Singleton<UIController>
 		Game.Instance.LoadNextLevel ();
 		SetMainMenuEnabled (false);
 		SetGameOverDialogEnabled (false);
+		SetContinuePanelEnabled (false);
 		SetScorePanelEnabled (true);
 	}
 
@@ -58,6 +61,11 @@ public class UIController : Singleton<UIController>
 	public void SetScorePanelEnabled (bool enabled)
 	{
 		ScorePanel.SetActive (enabled);
+	}
+
+	public void SetContinuePanelEnabled (bool enabled)
+	{
+		GameContinuePanel.SetActive (enabled);
 	}
 
 	public void SetGameOverDialogEnabled (bool enabled)
