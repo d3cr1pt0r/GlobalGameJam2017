@@ -22,6 +22,10 @@ public class Game : Singleton<Game>
 
 	private void Awake ()
 	{
+		Log.LogDebug (Tag, "Awake");
+
+		GameStateManager.Instance.OnLevelComplete += LevelComplete;
+
 		LevelManager.Instance.SetUniverse (Universe);
 		UIController.Instance.SetMainMenuEnabled (true);
 		StartGame ();
@@ -44,6 +48,11 @@ public class Game : Singleton<Game>
 	private void StopGame ()
 	{
 		
+	}
+
+	public void LevelComplete ()
+	{
+		UIController.Instance.SetContinuePanelEnabled (true);
 	}
 
 	private void GameOver ()
@@ -78,9 +87,7 @@ public class Game : Singleton<Game>
 		PoolManager.Instance.DestroyPool ();
 		UnloadCurrentLevel ();
 
-		if (!test) {
-			LoadCurrentLevel ();
-		}
+		LoadCurrentLevel ();
 	}
 
 	private void LoadCurrentLevel ()
@@ -98,6 +105,7 @@ public class Game : Singleton<Game>
 			CharacterControllerP2.SetControlsActive (true);
 
 			GameStateManager.Instance.SetLives (level.Lives);
+			GameStateManager.Instance.ResetScore ();
 
 			GameObject levelObject = Instantiate (level.LevelPrefab, level.LevelPosition, Quaternion.identity);
 			levelObject.transform.SetParent (LevelContainer, false);

@@ -10,6 +10,7 @@ public class ItemPatternSpawnerController : MonoBehaviour
 	private float bottomY;
 	private Transform topMostPatternTransform;
 	private bool Enabled;
+	private int SpawnedPatterns;
 
 	private void Awake ()
 	{
@@ -20,6 +21,7 @@ public class ItemPatternSpawnerController : MonoBehaviour
 		CalculateBottomYPosition ();
 
 		Enabled = true;
+		SpawnedPatterns = 0;
 	}
 
 	private void Update ()
@@ -140,6 +142,16 @@ public class ItemPatternSpawnerController : MonoBehaviour
 				highestYPosition = itemNode.Position.y;
 				topMostPatternTransform = go.transform;
 			}
+		}
+
+		SpawnedPatterns++;
+		CheckForSpawningDone ();
+	}
+
+	private void CheckForSpawningDone ()
+	{
+		if (SpawnedPatterns > Level.PatternsToGenerate) {
+			GameStateManager.Instance.LevelComplete ();
 		}
 	}
 

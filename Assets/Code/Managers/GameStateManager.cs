@@ -43,7 +43,7 @@ public class GameStateManager
 	public void SetLives (int lives)
 	{
 		Lives = lives;
-
+		UpdateUI ();
 	}
 
 	public void UpdateUI ()
@@ -112,6 +112,14 @@ public class GameStateManager
 			OnDebreeItemHitsGround ();	
 	}
 
+	public void LevelComplete ()
+	{
+		Log.LogDebug (Tag, "LevelComplete");
+
+		if (OnLevelComplete != null)
+			OnLevelComplete ();
+	}
+
 	public void CheckGameOver ()
 	{
 		if (Lives <= 0) {
@@ -122,14 +130,10 @@ public class GameStateManager
 		}
 	}
 
-	private void CheckLevelComplete ()
-	{
-
-	}
-
 	public void ResetScore ()
 	{
 		Score = 0;
+		UpdateUI ();
 	}
 
 }

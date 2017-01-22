@@ -26,6 +26,7 @@ public class ItemController : MonoBehaviour
 			PoolManager.Instance.ReturnToPool (gameObject);
 
 			if (ItemType == Enums.ItemType.GOAL) {
+				VfxManager.Instance.StartChromaticAbberation ();
 				VfxManager.Instance.EmitGoalGroundHitVfx (gameObject.transform.position);
 				GameStateManager.Instance.GoalItemHitsGround ();
 			}
