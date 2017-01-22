@@ -83,6 +83,11 @@ public class ItemPatternSpawnerController : MonoBehaviour
 
 	private Pattern GetPatternFromProbability ()
 	{
+		if (Level.Patterns.Count == 0) {
+			Log.LogDebug (Tag, "GetPatternFromProbability no patterns to load");
+			return null;
+		}
+
 		int random = Random.Range (0, Level.Patterns.Count);
 		return Level.Patterns [random];
 	}
@@ -90,6 +95,12 @@ public class ItemPatternSpawnerController : MonoBehaviour
 	private void SpawnPattern ()
 	{
 		Pattern pattern = GetPatternFromProbability ();
+
+		if (pattern == null) {
+			Log.LogDebug (Tag, "SpawnPattern pattern is null");
+			return;
+		}
+
 		GameObject itemPrefab;
 		float highestYPosition = -1;
 

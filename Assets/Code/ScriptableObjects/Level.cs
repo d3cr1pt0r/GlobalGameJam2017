@@ -8,7 +8,7 @@ public class Level : ScriptableObject
 	
 	public GameObject LevelPrefab;
 	public Vector3 LevelPosition;
-	public int ScoreGoal;
+	public int Lives = 10;
 
 	public List<Pattern> Patterns;
 

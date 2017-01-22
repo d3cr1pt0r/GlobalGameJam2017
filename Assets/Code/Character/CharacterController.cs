@@ -48,11 +48,11 @@ public class CharacterController : MonoBehaviour
 	{
 
 		// Get input
-		float xAxis1 = Input.GetAxis ("Horizontal1");
-		float xAxis2 = Input.GetAxis ("Horizontal2");
+		float xAxis1 = Input.GetAxis ("Horizontal_p1");
+		float xAxis2 = Input.GetAxis ("Horizontal_p2");
 		XAxis = PlayerNumber == 1 ? xAxis1 : xAxis2;
-		bool jump1 = Input.GetButtonDown ("JumpP1");
-		bool jump2 = Input.GetButtonDown ("JumpP2");
+		bool jump1 = Input.GetButtonDown ("Jump_p1");
+		bool jump2 = Input.GetButtonDown ("Jump_p2");
 		Jump = PlayerNumber == 1 ? jump1 : jump2;
 
 		// Rotate toward walk direction

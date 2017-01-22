@@ -2,11 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : Singleton<VfxManager>
+public class Game : Singleton<Game>
 {
 	private const string Tag = "GameManager";
 
 	[SerializeField] private Universe Universe;
+	public UIController UIController;
 
 	protected Game ()
 	{
@@ -16,7 +17,10 @@ public class Game : Singleton<VfxManager>
 	{
 		Log.LogDebug (Tag, "Awake");
 
+		GameStateManager.Instance.OnGameOver += GameOver;
+
 		LevelManager.Instance.SetUniverse (Universe);
+		UIController.SetMainMenuEnabled (true);
 		StartGame ();
 	}
 
@@ -35,14 +39,29 @@ public class Game : Singleton<VfxManager>
 		
 	}
 
-	private void LoadNextLevel ()
+	private void GameOver ()
 	{
-		
+		UIController.Instance.ShowGameOverDialog ();
+	}
+
+	public void Quit ()
+	{
+		StopGame ();
+		Application.Quit ();
+	}
+
+	public void LoadNextLevel ()
+	{
+		LevelManager.Instance.IncreaseLevel ();
+		GameStateManager.Instance.UpdateUI ();
+		LoadCurrentLevel ();
 	}
 
 	private void LoadCurrentLevel ()
 	{
 		Level level = LevelManager.Instance.GetCurrentLevel ();
+
+		GameStateManager.Instance.SetLives (level.Lives);
 
 		if (level != null) {
 			GameObject levelObject = Instantiate (level.LevelPrefab, level.LevelPosition, Quaternion.identity);
