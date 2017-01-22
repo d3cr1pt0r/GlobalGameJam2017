@@ -43,7 +43,7 @@ public class GameStateManager
 	public void SetLives (int lives)
 	{
 		Lives = lives;
-
+		UpdateUI ();
 	}
 
 	public void UpdateUI ()
@@ -122,6 +122,7 @@ public class GameStateManager
 	public void ResetScore ()
 	{
 		Score = 0;
+		UpdateUI ();
 	}
 
 }

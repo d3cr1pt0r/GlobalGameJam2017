@@ -71,9 +71,7 @@ public class Game : Singleton<Game>
 		PoolManager.Instance.DestroyPool ();
 		UnloadCurrentLevel ();
 
-		if (!test) {
-			LoadCurrentLevel ();
-		}
+		LoadCurrentLevel ();
 	}
 
 	private void LoadCurrentLevel ()
@@ -91,6 +89,7 @@ public class Game : Singleton<Game>
 			CharacterControllerP2.SetControlsActive (true);
 
 			GameStateManager.Instance.SetLives (level.Lives);
+			GameStateManager.Instance.ResetScore ();
 
 			GameObject levelObject = Instantiate (level.LevelPrefab, level.LevelPosition, Quaternion.identity);
 			levelObject.transform.SetParent (LevelContainer, false);
