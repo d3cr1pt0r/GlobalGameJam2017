@@ -25,6 +25,7 @@ public class Game : Singleton<Game>
 		Log.LogDebug (Tag, "Awake");
 
 		GameStateManager.Instance.OnGameOver += GameOver;
+		GameStateManager.Instance.OnLevelComplete += LevelComplete;
 
 		LevelManager.Instance.SetUniverse (Universe);
 		UIController.Instance.SetMainMenuEnabled (true);
@@ -44,6 +45,11 @@ public class Game : Singleton<Game>
 	private void StopGame ()
 	{
 		
+	}
+
+	public void LevelComplete ()
+	{
+		UIController.Instance.SetContinuePanelEnabled (true);
 	}
 
 	private void GameOver ()
