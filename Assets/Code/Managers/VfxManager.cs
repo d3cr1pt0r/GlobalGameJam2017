@@ -31,4 +31,10 @@ public class VfxManager : Singleton<VfxManager>
 		ChromaticAberration.StartVfx ();
 	}
 
+	public void StartCharacterGlow ()
+	{
+		Game.Instance.CharacterControllerP1.CharacterGlowController.StartGlowVfx ();
+		Game.Instance.CharacterControllerP2.CharacterGlowController.StartGlowVfx ();
+	}
+
 }

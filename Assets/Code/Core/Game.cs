@@ -10,8 +10,8 @@ public class Game : Singleton<Game>
 	[SerializeField] private Transform LevelContainer;
 	[SerializeField] private bool test = false;
 
-	[SerializeField] private CharacterController CharacterControllerP1;
-	[SerializeField] private CharacterController CharacterControllerP2;
+	[SerializeField] public CharacterController CharacterControllerP1;
+	[SerializeField] public CharacterController CharacterControllerP2;
 
 	public float Parallax;
 	public GameObject CameraHolder;

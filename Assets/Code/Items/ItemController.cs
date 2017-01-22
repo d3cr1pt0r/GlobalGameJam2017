@@ -43,6 +43,7 @@ public class ItemController : MonoBehaviour
 		PoolManager.Instance.ReturnToPool (gameObject);
 
 		if (ItemType == Enums.ItemType.GOAL) {
+			VfxManager.Instance.StartCharacterGlow ();
 			GameStateManager.Instance.GoalItemHitsSafeNet ();
 		}
 		if (ItemType == Enums.ItemType.DEBREE) {
