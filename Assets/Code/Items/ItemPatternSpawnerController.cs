@@ -69,7 +69,7 @@ public class ItemPatternSpawnerController : MonoBehaviour
 			prefabs = ItemPrefabUtil.GetAllGoalPrefabs ();
 		}
 		if (itemType == Enums.ItemType.DEBREE) {
-			prefabs = ItemPrefabUtil.GetAllGoalPrefabs ();
+			prefabs = ItemPrefabUtil.GetAllDebreePrefabs ();
 		}
 
 		if (prefabs == null) {

@@ -104,7 +104,7 @@ public class LevelEditorGUI : Editor
 					itemPrefab = ItemPrefabUtil.GetGoalProxy ();
 				}
 				if (itemNode.ItemType == Enums.ItemType.DEBREE) {
-					itemPrefab = ItemPrefabUtil.GetGoalProxy ();
+					itemPrefab = ItemPrefabUtil.GetDebreeProxy ();
 				}
 			} else {
 				itemPrefab = itemNode.ItemPrefab;
@@ -142,7 +142,7 @@ public class LevelEditorGUI : Editor
 				itemNode.Position = patternItem.transform.position;
 			} else if (patternItem.name.Contains ("debree_proxy")) {
 				itemNode.ItemPrefab = null;
-				itemNode.ItemType = Enums.ItemType.GOAL;
+				itemNode.ItemType = Enums.ItemType.DEBREE;
 				itemNode.Position = patternItem.transform.position;
 			} else {
 				string path = null;

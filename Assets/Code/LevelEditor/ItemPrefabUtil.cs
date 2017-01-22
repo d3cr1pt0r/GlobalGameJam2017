@@ -1,13 +1,12 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using System.IO;
-using UnityEditor;
-
 
 public class ItemPrefabUtil
 {
 	private const string Tag = "ItemPrefabUtil";
 	public static string ItemPrefabsPath = "Assets/Resources/Prefabs/Items";
+	public static string ItemPrefabsResourcesPath = "Prefabs/Items/";
 
 	public static List<GameObject> GetAllGoalPrefabs ()
 	{
@@ -18,7 +17,8 @@ public class ItemPrefabUtil
 			string path = items [i];
 			string name = Path.GetFileNameWithoutExtension (path);
 			if (name.StartsWith ("goal_") && !name.Contains ("goal_proxy") && path.EndsWith (".prefab")) {
-				GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject> (path) as GameObject;
+				//GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject> (path) as GameObject;
+				GameObject prefab = Resources.Load<GameObject> (ItemPrefabsResourcesPath + name) as GameObject;
 
 				if (prefab != null) {
 					prefabs.Add (prefab);
@@ -40,7 +40,8 @@ public class ItemPrefabUtil
 			string path = items [i];
 			string name = Path.GetFileNameWithoutExtension (path);
 			if (name.StartsWith ("debree_") && !name.Contains ("debree_proxy") && path.EndsWith (".prefab")) {
-				GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject> (path) as GameObject;
+				//GameObject prefab = AssetDatabase.LoadAssetAtPath<GameObject> (path) as GameObject;
+				GameObject prefab = Resources.Load<GameObject> (ItemPrefabsResourcesPath + name) as GameObject;
 
 				if (prefab != null) {
 					prefabs.Add (prefab);
@@ -55,26 +56,26 @@ public class ItemPrefabUtil
 
 	public static GameObject GetDebreeProxy ()
 	{
-		string path = ItemPrefabsPath + "/debree_proxy.prefab";
+		string path = ItemPrefabsResourcesPath + "debree_proxy";
+		GameObject prefab = Resources.Load<GameObject> (path);
 
-		if (!File.Exists (path)) {
-			Log.LogDebug (Tag, "GetDebreeProxy file does not exist {0}", path);
-			return null;
+		if (prefab == null) {
+			Log.LogDebug (Tag, "GetDebreeProxy failed to load prefab at path {0}", path);
 		}
 
-		return AssetDatabase.LoadAssetAtPath<GameObject> (path) as GameObject;
+		return prefab;
 	}
 
 	public static GameObject GetGoalProxy ()
 	{
-		string path = ItemPrefabsPath + "/goal_proxy.prefab";
+		string path = ItemPrefabsResourcesPath + "goal_proxy";
+		GameObject prefab = Resources.Load<GameObject> (path);
 
-		if (!File.Exists (path)) {
-			Log.LogDebug (Tag, "GetDebreeProxy file does not exist {0}", path);
-			return null;
+		if (prefab == null) {
+			Log.LogDebug (Tag, "GetDebreeProxy failed to load prefab at path {0}", path);
 		}
 
-		return AssetDatabase.LoadAssetAtPath<GameObject> (path) as GameObject;
+		return prefab;
 	}
 
 }
