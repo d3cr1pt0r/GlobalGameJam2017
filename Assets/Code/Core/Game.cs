@@ -2,11 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Game : MonoBehaviour
+public class Game : Singleton<VfxManager>
 {
 	private const string Tag = "GameManager";
 
 	[SerializeField] private Universe Universe;
+
+	protected Game ()
+	{
+	}
 
 	private void Awake ()
 	{
