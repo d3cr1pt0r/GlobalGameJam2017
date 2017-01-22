@@ -22,7 +22,4 @@
 		DEBREE,
 		GOAL,
 	}
-
-
-
 }
