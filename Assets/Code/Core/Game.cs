@@ -28,29 +28,30 @@ public class Game : Singleton<Game>
 
 		IsPlaying = false;
 		GameStateManager.Instance.OnLevelComplete += LevelComplete;
+		GameStateManager.Instance.OnGameOver += GameOver;
 
 		LevelManager.Instance.SetUniverse (Universe);
 		UIController.Instance.SetMainMenuEnabled (true);
-		StartGame ();
 
+		InitGame ();
 	}
 
-	private void StartGame ()
+	public void InitGame ()
 	{
 		AudioController.Instance.PlayMusic (MusicType.GameOver, false);
 		AudioController.Instance.PlayMusic (MusicType.Full);
-		GameStateManager.Instance.OnGameOver += GameOver;
 		LoadCurrentLevel ();
 	}
 
-	private void PauseGame ()
+	public void PauseGame ()
 	{
 	
 	}
 
-	private void StopGame ()
+	public void StopGame ()
 	{
-		
+		UnloadCurrentLevel ();
+		PoolManager.Instance.DestroyPool ();
 	}
 
 	public void LevelComplete ()
@@ -72,7 +73,6 @@ public class Game : Singleton<Game>
 
 		AudioController.Instance.PlayMusic (MusicType.Full, false);
 		AudioController.Instance.PlayMusic (MusicType.GameOver);
-		GameStateManager.Instance.OnGameOver -= GameOver;
 
 		IsPlaying = false;
 
@@ -110,14 +110,14 @@ public class Game : Singleton<Game>
 			CharacterControllerP1.SetControlsActive (true);
 			CharacterControllerP2.SetControlsActive (true);
 
-			IsPlaying = true;
-
 			GameStateManager.Instance.SetLives (level.Lives);
 			GameStateManager.Instance.ResetScore ();
 
 			GameObject levelObject = Instantiate (level.LevelPrefab, level.LevelPosition, Quaternion.identity);
 			levelObject.transform.SetParent (LevelContainer, false);
 			LevelManager.Instance.CurrentLoadedLevel = levelObject;
+
+			IsPlaying = true;
 		}
 	}
 
