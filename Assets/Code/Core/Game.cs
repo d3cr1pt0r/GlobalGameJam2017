@@ -7,6 +7,8 @@ public class Game : Singleton<Game>
 	private const string Tag = "GameManager";
 
 	[SerializeField] private Universe Universe;
+	public float Parallax;
+	public GameObject CameraHolder;
 	public UIController UIController;
 
 	protected Game ()
