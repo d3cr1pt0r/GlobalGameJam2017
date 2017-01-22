@@ -6,11 +6,9 @@ public class Game : Singleton<Game>
 {
 	private const string Tag = "GameManager";
 
-    [SerializeField] private Universe Universe;
-    [SerializeField] private CharacterController Player1;
-    [SerializeField] private CharacterController Player2;
-    [SerializeField] private Transform LevelContainer;
-
+	[SerializeField] private Universe Universe;
+	[SerializeField] private Transform LevelContainer;
+	[SerializeField] private bool test = false;
 	public float Parallax;
 	public GameObject CameraHolder;
 
@@ -49,6 +47,7 @@ public class Game : Singleton<Game>
 		UIController.Instance.SetScoreGameOver (GameStateManager.Instance.Score);
 		UIController.Instance.ShowGameOverDialog ();
 		LevelManager.Instance.ResetCurrentLevel ();
+		LevelManager.Instance.CurrentLoadedLevel.GetComponent<ItemPatternSpawnerController> ().SetEnabled (false);
 	}
 
 	public void Quit ()
@@ -64,17 +63,15 @@ public class Game : Singleton<Game>
 
 		PoolManager.Instance.DestroyPool ();
 		UnloadCurrentLevel ();
-		LoadCurrentLevel ();
+
+		if (!test) {
+			LoadCurrentLevel ();
+		}
 	}
 
 	private void LoadCurrentLevel ()
 	{
 		Level level = LevelManager.Instance.GetCurrentLevel ();
-
-        Player1.transform.position = level.Player1SpawnPoint.position;
-        Player2.transform.position = level.Player2SpawnPoint.position;
-        Player1.Reset();
-        Player2.Reset();
 
 		GameStateManager.Instance.SetLives (level.Lives);
 

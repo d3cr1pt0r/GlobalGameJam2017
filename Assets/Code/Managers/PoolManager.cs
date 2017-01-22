@@ -122,12 +122,15 @@ public class PoolManager
 
 		foreach (Transform child in activePoolObject.transform)
 			children.Add (child.gameObject);
-		children.ForEach (child => GameObject.Destroy (child));
+		children.ForEach (child => GameObject.DestroyImmediate (child));
 
 		children = new List<GameObject> ();
 		foreach (Transform child in inactivePoolObjects.transform)
 			children.Add (child.gameObject);
-		children.ForEach (child => GameObject.Destroy (child));
+		children.ForEach (child => GameObject.DestroyImmediate (child));
+
+		PoolActive = new Dictionary<string, List<GameObject>> ();
+		PoolInactive = new Dictionary<string, List<GameObject>> ();
 	}
 
 	private string GetName (GameObject go)

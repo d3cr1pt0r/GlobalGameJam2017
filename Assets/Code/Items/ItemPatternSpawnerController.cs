@@ -9,6 +9,7 @@ public class ItemPatternSpawnerController : MonoBehaviour
 
 	private float bottomY;
 	private Transform topMostPatternTransform;
+	private bool Enabled;
 
 	private void Awake ()
 	{
@@ -17,13 +18,22 @@ public class ItemPatternSpawnerController : MonoBehaviour
 		CreatePool ();
 		SpawnPattern ();
 		CalculateBottomYPosition ();
+
+		Enabled = true;
 	}
 
 	private void Update ()
 	{
-		if (ShouldSpawnNextPattern ()) {
-			SpawnPattern ();
+		if (Enabled) {
+			if (ShouldSpawnNextPattern ()) {
+				SpawnPattern ();
+			}
 		}
+	}
+
+	public void SetEnabled (bool enabled)
+	{
+		Enabled = enabled;
 	}
 
 	private void CreatePool ()
