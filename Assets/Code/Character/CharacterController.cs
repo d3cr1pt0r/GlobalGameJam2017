@@ -95,7 +95,6 @@ public class CharacterController : MonoBehaviour {
         // Turn wheels
         if (IsOnGround) {
             float xStep = transform.position.x - PrevPos.x;
-            Debug.Log(string.Format("xStep={0}", xStep));
             BackWheel.Rotate(Vector3.forward, -xStep * BackWheelRotation);
             FrontWheel.Rotate(Vector3.forward, -xStep * ForwardWheelRotation);
             //            Debug.Log(string.Format("Velocity.x={0}", Velocity.x));
