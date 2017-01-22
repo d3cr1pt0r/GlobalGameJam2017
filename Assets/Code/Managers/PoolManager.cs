@@ -92,8 +92,6 @@ public class PoolManager
 
 		AddToPool (go, 10);
 		return GetFromPool (go);
-
-		return null;
 	}
 
 	public void ReturnToPool (GameObject go)

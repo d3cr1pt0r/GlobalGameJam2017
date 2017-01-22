@@ -67,8 +67,8 @@ public class CharacterController : MonoBehaviour
 			float xAxis1 = Input.GetAxis ("Horizontal_p1");
 			float xAxis2 = Input.GetAxis ("Horizontal_p2");
 			XAxis = PlayerNumber == 1 ? xAxis1 : xAxis2;
-			bool jump1 = Input.GetButtonDown ("Jump_p1");
-			bool jump2 = Input.GetButtonDown ("Jump_p2");
+			bool jump1 = Input.GetAxis ("Jump_p1") > 0;
+			bool jump2 = Input.GetAxis ("Jump_p2") > 0;
 			Jump = PlayerNumber == 1 ? jump1 : jump2;
 		} else {
 			XAxis = 0;
