@@ -13,6 +13,7 @@ public class UIController : Singleton<UIController>
 
 	[SerializeField] private Text TextScore;
 	[SerializeField] private Text TextLives;
+	[SerializeField] private Text TextScoreGameOver;
 
 	protected UIController ()
 	{
@@ -23,6 +24,7 @@ public class UIController : Singleton<UIController>
 	{
 		Game.Instance.LoadNextLevel ();
 		SetMainMenuEnabled (false);
+		SetGameOverDialogEnabled (false);
 		SetScorePanelEnabled (true);
 	}
 
@@ -41,9 +43,15 @@ public class UIController : Singleton<UIController>
 		TextLives.text = "Lives: " + lives.ToString ();
 	}
 
+	public void SetScoreGameOver (int score)
+	{
+		TextScoreGameOver.text = "Score: " + score;
+	}
+
 	public void ShowGameOverDialog ()
 	{
 		SetMainMenuEnabled (false);
+		SetScorePanelEnabled (false);
 		SetGameOverDialogEnabled (true);
 	}
 

@@ -7,9 +7,9 @@ public class Game : Singleton<Game>
 	private const string Tag = "GameManager";
 
 	[SerializeField] private Universe Universe;
+	[SerializeField] private Transform LevelContainer;
 	public float Parallax;
 	public GameObject CameraHolder;
-	public UIController UIController;
 
 	protected Game ()
 	{
@@ -22,7 +22,7 @@ public class Game : Singleton<Game>
 		GameStateManager.Instance.OnGameOver += GameOver;
 
 		LevelManager.Instance.SetUniverse (Universe);
-		UIController.SetMainMenuEnabled (true);
+		UIController.Instance.SetMainMenuEnabled (true);
 		StartGame ();
 	}
 
@@ -43,7 +43,9 @@ public class Game : Singleton<Game>
 
 	private void GameOver ()
 	{
+		UIController.Instance.SetScoreGameOver (GameStateManager.Instance.Score);
 		UIController.Instance.ShowGameOverDialog ();
+		LevelManager.Instance.ResetCurrentLevel ();
 	}
 
 	public void Quit ()
@@ -56,6 +58,9 @@ public class Game : Singleton<Game>
 	{
 		LevelManager.Instance.IncreaseLevel ();
 		GameStateManager.Instance.UpdateUI ();
+
+		PoolManager.Instance.DestroyPool ();
+		UnloadCurrentLevel ();
 		LoadCurrentLevel ();
 	}
 
@@ -67,7 +72,7 @@ public class Game : Singleton<Game>
 
 		if (level != null) {
 			GameObject levelObject = Instantiate (level.LevelPrefab, level.LevelPosition, Quaternion.identity);
-			levelObject.transform.SetParent (transform, false);
+			levelObject.transform.SetParent (LevelContainer, false);
 			LevelManager.Instance.CurrentLoadedLevel = levelObject;
 		}
 	}
@@ -75,7 +80,7 @@ public class Game : Singleton<Game>
 	private void UnloadCurrentLevel ()
 	{
 		if (LevelManager.Instance.CurrentLoadedLevel != null) {
-			GameObject.Destroy (LevelManager.Instance.CurrentLoadedLevel);
+			GameObject.DestroyImmediate (LevelManager.Instance.CurrentLoadedLevel);
 			LevelManager.Instance.CurrentLoadedLevel = null;
 		}
 	}
