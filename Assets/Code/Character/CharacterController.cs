@@ -39,6 +39,7 @@ public class CharacterController : MonoBehaviour {
     private RaycastHit2D Hit;
     private float TurnHeadDelay;
     private Vector3 PrevPos;
+    private bool IsControlsActive;
 
     void Start() {
         Position = transform.position;
@@ -49,12 +50,17 @@ public class CharacterController : MonoBehaviour {
     void Update() {
 
         // Get input
-        float xAxis1 = Input.GetAxis("Horizontal_p1");
-        float xAxis2 = Input.GetAxis("Horizontal_p2");
-        XAxis = PlayerNumber == 1 ? xAxis1 : xAxis2;
-        bool jump1 = Input.GetButtonDown("Jump_p1");
-        bool jump2 = Input.GetButtonDown("Jump_p2");
-        Jump = PlayerNumber == 1 ? jump1 : jump2;
+        if (IsControlsActive) {
+            float xAxis1 = Input.GetAxis("Horizontal_p1");
+            float xAxis2 = Input.GetAxis("Horizontal_p2");
+            XAxis = PlayerNumber == 1 ? xAxis1 : xAxis2;
+            bool jump1 = Input.GetButtonDown("Jump_p1");
+            bool jump2 = Input.GetButtonDown("Jump_p2");
+            Jump = PlayerNumber == 1 ? jump1 : jump2;
+        } else {
+            XAxis = 0;
+            Jump = false;
+        }
 
         // Rotate toward walk direction
         Vector3 dif = OtherCharacter.transform.position - transform.position;
@@ -90,6 +96,10 @@ public class CharacterController : MonoBehaviour {
             //            Debug.Log(string.Format("Velocity.x={0}", Velocity.x));
         }
         PrevPos = transform.position;
+    }
+
+    public void SetControlsActive(bool active) {
+        IsControlsActive = active;
     }
 
     private void MoveUpdate() {
