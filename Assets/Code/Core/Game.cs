@@ -24,16 +24,19 @@ public class Game : Singleton<Game>
 	{
 		Log.LogDebug (Tag, "Awake");
 
-		GameStateManager.Instance.OnGameOver += GameOver;
 		GameStateManager.Instance.OnLevelComplete += LevelComplete;
 
 		LevelManager.Instance.SetUniverse (Universe);
 		UIController.Instance.SetMainMenuEnabled (true);
 		StartGame ();
+
 	}
 
-	private void StartGame ()
-	{
+    private void StartGame ()
+    {
+        AudioController.Instance.PlayMusic(MusicType.GameOver,false);
+        AudioController.Instance.PlayMusic(MusicType.Full);
+        GameStateManager.Instance.OnGameOver += GameOver;
 		LoadCurrentLevel ();
 	}
 
@@ -61,6 +64,13 @@ public class Game : Singleton<Game>
 
 		CharacterControllerP1.SetControlsActive (false);
 		CharacterControllerP2.SetControlsActive (false);
+
+        AudioController.Instance.PlayMusic(MusicType.Full, false);
+        AudioController.Instance.PlayMusic(MusicType.GameOver);
+//        AudioController.Instance.PlayGameOver(MusicType.GameOver);
+        GameStateManager.Instance.OnGameOver -= GameOver;
+
+        Debug.Log("Game over");
 	}
 
 	public void Quit ()
