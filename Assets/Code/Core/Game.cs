@@ -8,6 +8,7 @@ public class Game : Singleton<Game>
 
 	[SerializeField] private Universe Universe;
 	[SerializeField] private Transform LevelContainer;
+	[SerializeField] private bool test = false;
 	public float Parallax;
 	public GameObject CameraHolder;
 
@@ -46,6 +47,7 @@ public class Game : Singleton<Game>
 		UIController.Instance.SetScoreGameOver (GameStateManager.Instance.Score);
 		UIController.Instance.ShowGameOverDialog ();
 		LevelManager.Instance.ResetCurrentLevel ();
+		LevelManager.Instance.CurrentLoadedLevel.GetComponent<ItemPatternSpawnerController> ().SetEnabled (false);
 	}
 
 	public void Quit ()
@@ -61,7 +63,10 @@ public class Game : Singleton<Game>
 
 		PoolManager.Instance.DestroyPool ();
 		UnloadCurrentLevel ();
-		LoadCurrentLevel ();
+
+		if (!test) {
+			LoadCurrentLevel ();
+		}
 	}
 
 	private void LoadCurrentLevel ()
