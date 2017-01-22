@@ -14,6 +14,7 @@ public class CharacterController : MonoBehaviour {
     [SerializeField] private LayerMask RopeLayerMask;
     [SerializeField] private int PlayerNumber;
     [SerializeField] private CharacterController OtherCharacter;
+    [SerializeField] private Rigidbody2D Rigidbody2D;
 
     [Header("Graphics")]
     [SerializeField] private Animator Animator;
@@ -41,11 +42,15 @@ public class CharacterController : MonoBehaviour {
     private Vector3 PrevPos;
     private bool IsControlsActive;
 
-    void Start() {
+    public void Reset(){
         Position = transform.position;
         PrevPos = transform.position;
+        Rigidbody2D.velocity = Vector3.zero;
     }
 
+    void Start() {
+        Reset();
+    }
 
     void Update() {
 

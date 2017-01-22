@@ -6,7 +6,9 @@ public class Game : Singleton<Game>
 {
 	private const string Tag = "GameManager";
 
-	[SerializeField] private Universe Universe;
+    [SerializeField] private Universe Universe;
+    [SerializeField] private CharacterController Player1;
+    [SerializeField] private CharacterController Player2;
 	public float Parallax;
 	public GameObject CameraHolder;
 	public UIController UIController;
@@ -62,6 +64,11 @@ public class Game : Singleton<Game>
 	private void LoadCurrentLevel ()
 	{
 		Level level = LevelManager.Instance.GetCurrentLevel ();
+
+        Player1.transform.position = level.Player1SpawnPoint.position;
+        Player2.transform.position = level.Player2SpawnPoint.position;
+        Player1.Reset();
+        Player2.Reset();
 
 		GameStateManager.Instance.SetLives (level.Lives);
 
