@@ -6,6 +6,8 @@ public class CameraController : MonoBehaviour {
 
     [SerializeField] private CharacterController CharacterController1;
     [SerializeField] private CharacterController CharacterController2;
+    [SerializeField] private float LeftEdge = -3;
+    [SerializeField] private float RightEdge = 3;
     [SerializeField] private float AttractSpeed = 10;
 
     void Update() {
@@ -16,6 +18,13 @@ public class CameraController : MonoBehaviour {
         Vector3 moveVector = dif.normalized * dis * AttractSpeed;
         moveVector.y = 0;
 
-        transform.Translate(moveVector);
+        Vector3 newPos = transform.position + moveVector;
+        if (newPos.x < LeftEdge) {
+            newPos.x = LeftEdge;
+        } else if (newPos.x > RightEdge) {
+            newPos.x = RightEdge;
+        }
+
+        transform.position = newPos;
     }
 }
